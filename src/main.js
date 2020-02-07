@@ -1,0 +1,24 @@
+import Vue from 'vue'
+import App from './App.vue'
+import './registerServiceWorker'
+import router from './router/index.js'
+import store from './store'
+import Navbar from './components/navbar'
+import Footer from './components/footer'
+import prefooter from './components/prefooter'
+import ExtNav from './components/navbarExT'
+import TravNav from './components/navbar-travooler'
+
+Vue.config.productionTip = false
+
+Vue.component('nav-bar', Navbar)
+Vue.component('nav-bar-ExT', ExtNav)
+Vue.component('navTrav', TravNav)
+Vue.component('preFooter', prefooter)
+Vue.component('uni-footer', Footer)
+
+new Vue({
+  render: h => h(App),
+  router,
+  store
+}).$mount('#app')
