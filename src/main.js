@@ -9,6 +9,9 @@ import prefooter from './components/prefooter'
 import ExtNav from './components/navbarExT'
 import TravNav from './components/navbar-travooler'
 
+// import chillax from './plugins/chillax'
+
+// Vue.use(chillax)
 Vue.config.productionTip = false
 
 Vue.component('nav-bar', Navbar)

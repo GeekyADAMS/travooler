@@ -1,16 +1,12 @@
 <template>
-    <section class="prefooter-links poppins flex-row a-c space-btw">
-        <div class="flex-row space-btw link-cols-wrap">
-        <div v-for="linkTextItem in PrefooterLinks" :key="linkTextItem.linkText" class="flex-col link-col poppins">
+    <section class="prefooter-links poppins flex-row space-btw" style="max-width: 100vw;">
+        <div class="flex-row flex-col-m wrap flex-wrap space-btw link-cols-wrap" style="max-width: 100vw;">
+        <div v-for="linkTextItem in PrefooterLinks" :key="linkTextItem.linkText" class="flex-col link-col poppins mt-3">
             <h4>{{linkTextItem.LinkHead}}</h4>
             <ul>
             <li v-for="link in linkTextItem.linkList" :key="link">{{link}}</li>
             </ul>
         </div>
-        </div>
-        <div class="flex-col a-c get-app-icons">
-        <img src="@/assets/App-Store-Grey.png" alt="">
-        <img src="@/assets/Google-Play-Grey.png" alt="">
         </div>
     </section>
 </template>
@@ -30,6 +26,11 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 480px) {
+  .mt-3{
+    margin-top: 3rem;
+  }
+}
 .prefooter-links{
   padding: 5rem 6rem 5rem 6rem;
   width: 85vw;

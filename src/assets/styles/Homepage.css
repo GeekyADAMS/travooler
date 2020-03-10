@@ -1,0 +1,363 @@
+@media screen and (max-width: 480px) {
+    .hero{
+        clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 0% 100%);
+    }
+    .sponsors{
+        transform: rotate(-5deg);
+        margin-top: -1rem;
+    }
+    .hero-illus{
+      display: none;
+    }
+    .hero-texts{
+      padding-left: 1.5rem;
+    }
+    .hero-texts>p{
+      max-width: 400px;
+    }
+    .hero-texts > h2 {
+      min-width: 90vw;
+    }
+    .third-sect-contain{
+       width: 90vw;
+    }
+    .third-sect-contain>h2{
+      font-size: 2.5rem;
+    }
+    .third-sect-contain>p, .sub-title{
+      font-size: 1.2rem;
+    }
+    .forth{
+      flex-direction: column;
+    }
+    .left-forth>img{
+      height: 50vh;
+    }
+    .right-forth{
+      padding: 4rem 2rem;
+      background: rgb(255, 240, 249);;
+      margin-top: -.4rem;
+    }
+    .fifth>h2{
+      font-size: 2.3rem;
+    }
+    
+    .sixth>div>div{
+      width: 50vw;
+    }
+    .sixth>h1{
+      width: 100vw;
+      text-align: center;
+    }
+    .left-forth>.lf2{
+      height: 70vh;
+      width: 100vw;
+    }
+
+}
+@media screen and (min-width: 480px) {
+    .hero-texts{
+      padding-left: 6rem;
+    }
+    .third-sect-contain{
+       width: 65vw;
+    }
+    .third-sect-contain>h2{
+      font-size: 3.5rem;
+    }
+    .third-sect-contain>p, .sub-title{
+      font-size: 1.4rem;
+    }
+    .left-forth>img{
+      height: 90vh;
+    }
+    .right-forth{
+      padding: 4rem;
+    }
+    .fifth>h2{
+      font-size: 2.8rem;
+    }
+
+    .sixth>div>div{
+      width: 20vw;
+    }
+    .left-forth>.lf2{
+      height: 100vh;
+      width: 48vw;
+    }
+    .sub-title{
+        max-width: 70vw;
+    }
+}
+
+.sub-title{
+  text-align: center;
+  opacity: .6;
+}
+.fifth>h2{
+  text-align: center;
+  margin-bottom: 2.5rem;
+  margin-top: 8rem;
+}
+
+.approval{
+  background: rgb(44, 135, 240);
+  padding: 4rem;
+}
+.approval>div{
+  margin: 1rem 4rem 1rem 4rem;
+}
+.approval>div>img{
+  width: 15rem;
+  height: 7rem;
+  margin-bottom: 1.5rem;
+}
+.approval>div>p{
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.btn2{
+  color: white;
+}
+.sixth{
+  background: rgb(165, 253, 212);
+  height: auto;
+  margin-top: 8rem;
+  color: white;
+  padding: 9rem 0 6rem 0;
+  border-bottom: 3px solid rgb(47, 211, 223);
+}
+
+.sixth>h1{
+  font-size: 3.35rem;
+  font-weight: 500;
+  color: black;
+}
+.sixth>div{
+  margin-top: 2.5rem;
+}
+.sixth>div>div{
+  background: white;
+  color: #101820;
+  padding: 2.5rem 2.5rem;
+  border-radius: 5px;
+  margin: .8rem;
+}
+.sixth>div>div>h2{
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.sixth>div>div>p{
+  font-size: 1.2rem;
+}
+
+.hero{
+  /* background: rgb(44, 135, 240);*/
+  background: rgb(133, 35, 224);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-illus{
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: baseline;
+  align-self: center;
+}
+.hero-illus>img{
+  position: relative;
+  bottom: -12rem;
+  left: 12rem;
+  width: 22rem;
+  animation-name: cardswipe;
+  animation-duration: 12s;
+  animation-delay: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes cardswipe {
+  0%{transform: rotate(0deg);}
+  30%{transform: rotate(15deg);}
+  60%{transform: rotate(0deg);}
+  90%{transform: rotate(-20deg);}
+  100%{transform: rotate(0deg);}
+}
+
+.hero-texts{
+  height: 100vh;
+  width: 50vw;
+}
+.hero-texts>h2{
+  color: white;
+  font-weight: 500;
+  font-size: 3.5rem;
+  margin-top: 8rem;
+  margin-bottom: 1.5rem;
+  line-height: 3.7rem;
+}
+.hero-texts>p{
+  color: white;
+  font-weight: 500;
+  font-size: 1.3rem;
+  width: 35rem;
+  margin-bottom: 3rem;
+}
+.btn1{
+  color: black;
+}
+.anime-btn-1 {
+  z-index: 1;
+  position: relative;
+  font-size: 1.3rem;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: #FFF67F;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+  padding: 1.2rem 2rem;
+  width: fit-content;
+}
+
+.anime-btn-1::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: #fee715;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.7s ease-in-out;
+}
+
+.anime-btn-1:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.anime-btn-1:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+.sponsors{
+  width: 100vw;
+  padding: 2rem;
+  background: rgb(230, 252, 242);
+}
+.sponsor{
+  width: 100vw;
+  padding: 2rem;
+  background: rgb(230, 252, 242);
+}
+
+.third-sect{
+  width: 100vw;
+  color: #15202c;
+  padding: 10rem 0;
+}
+
+.third-sect-contain{
+  text-align: center;
+}
+.third-sect-contain>h2{
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.third-sect-contain>p{
+  text-align: center;
+  opacity: .6;
+}
+
+.right-forth>h2{
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+}
+.right-forth>p{
+  font-size: 1.4rem;
+  opacity: .6;
+}
+.primary{
+  color: #101820;
+}
+
+.students, .travelers, .trav-comm{
+  border-radius: 15px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 3rem 1.5rem 3rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.students{
+  background: url('~@/assets/Frame 1.png');
+}
+.stutag{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.stu-title{
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.stu-desc{
+  opacity: .6;
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+}
+.travelers{
+  background: url('~@/assets/Frame 2.png');
+}
+.btn-line-1, .btn-line-2, .btn-line-3{
+  width: fit-content;
+  transition: background .5s ease-in;
+  box-sizing: border-box;
+  background: transparent;
+  padding: .5rem;
+  border-radius: 0;
+}
+.btn-line-1{
+  border-bottom: 3px solid rgb(72, 238, 160);
+}
+.btn-line-1:hover{
+  background: rgb(72, 238, 160);
+  border-top: 3px solid rgb(72, 238, 160);
+}
+.btn-line-1:hover, .btn-line-2:hover, .btn-line-3:hover{
+  border-radius: 5px;
+}
+.btn-line-2{
+  border-bottom: 3px solid #FFF67F;
+}
+.btn-line-2:hover{
+  border-top: 3px solid #FFF67F;
+  background: #FFF67F;
+}
+.btn-line-3{
+  border-bottom: 3px solid rgb(148, 148, 148);;
+}
+.btn-line-3:hover{
+  border-top: 3px solid rgb(148, 148, 148);;
+  background: rgb(148, 148, 148);
+  color: white;
+}
+.trav-comm{
+  box-shadow: 0 0 12px rgba(0,0,0,.1);
+}
+.interests{
+  padding: .5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid black;
+  width: fit-content;
+}

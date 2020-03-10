@@ -1,37 +1,41 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import homepage from '@/components/Homepage'
-import explorepage from '@/components/Explore-Travels'
-import travoolerpage from '@/components/Travooler'
-import searchpage from '@/components/search-page'
-import onboarding from '@/components/onboarding'
-import travoolerOnboarding from '@/components/travooler-onboarding'
-import signIn from '@/components/sign-in'
-import setPassword from '@/components/set-password'
-import payment from '@/components/payment'
+// import homepage from '@/components/Homepage'
+// import explorepage from '@/components/Explore-Travels'
+// import travoolerpage from '@/components/Travooler'
+// import searchpage from '@/components/search-page'
+import onboarding from '@/views/onboarding'
+import travoolerOnboarding from '@/views/travooler-onboarding'
+// import signIn from '@/components/sign-in'
+// import setPassword from '@/components/set-password'
+// import payment from '@/components/payment'
 
 Vue.use(VueRouter)
+
+function lazyLoad (view) {
+  return () => import(`@/views/${view}.vue`)
+}
 
 const routes = [
   {
     path: '/',
     name: 'homepage',
-    component: homepage
+    component: lazyLoad('Homepage')
   },
   {
     path: '/explore',
     name: 'explorepage',
-    component: explorepage
+    component: lazyLoad('Explore-Travels')
   },
   {
     path: '/travooler',
     name: 'travoolerpage',
-    component: travoolerpage
+    component: lazyLoad('Travooler')
   },
   {
     path: '/search-school',
     name: 'searchpage',
-    component: searchpage
+    component: lazyLoad('search-page')
   },
   {
     path: '/Get-Started',
@@ -46,17 +50,17 @@ const routes = [
   {
     path: '/set-password',
     name: 'setPassword',
-    component: setPassword
+    component: lazyLoad('set-passsword')
   },
   {
     path: '/sign-in',
     name: 'signIn',
-    component: signIn
+    component: lazyLoad('sign-in')
   },
   {
     path: '/payment',
     name: 'payment',
-    component: payment
+    component: lazyLoad('payment')
   }
 ]
 

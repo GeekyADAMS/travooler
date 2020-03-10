@@ -1,18 +1,21 @@
 <template>
+    <div class="flex-col a-c">
+
     <div class="flex-col w100 a-c navTrav" v-if="navStat">
         <div class="preNav flex-row a-n-c w100">
             <ul class="preNav-ul">
-                <li class="poppins white preNav-li" router to="/travooler" style="font-weight: 300;">Travelers</li>
-                <li class="poppins white preNav-li" style="font-weight: 300;">Travel Agencies</li>
-                <li class="poppins white preNav-li" router to="/search-school" style="font-weight: 300;">Universities & Recruiters</li>
+                <li class="poppins white preNav-li inline" router to="/" style="font-weight: 300;"><router-link to="/" style="text-decoration: none; color: white;">Travelers</router-link></li>
+                <li class="poppins white non-mobile inline" style="font-weight: 300;" v-if="travAgent">Travel Agencies</li>
+                <li class="poppins white preNav-li inline point" style="font-weight: 300;">Universities & Recruiters</li>
             </ul>
         </div>
         <nav>
             <div class="nav-flex">
-                <img id="logo" src="@/assets/STASHIP-UNIVERS-IMG/logo.png" router t0="/">
-                <div>
+                <router-link to="/" style="color: black; text-decoration: none;"><img id="logo" src="@/assets/logo-black.jpg" class="point" router to="/"></router-link>
+
+                <div class="desktop-nav">
                     <ul v-if="navListStatus" class="poppins">
-                        <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[0].class">{{navList[0].content}}</span></li>
+                        <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[0].class"><router-link to="/search-school" style="text-decoration: none; color: rgba(0,0,0,.5)">{{navList[0].content}}</router-link></span></li>
                         <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[1].class" v-html="navList[1].content"></span></li>
                         <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[2].class"  v-html="navList[2].content"></span></li>
                         <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[3].class" v-on:click="splitNavStatus = !splitNavStatus" v-html="navList[3].content"></span></li>
@@ -20,6 +23,16 @@
                         <li class="secondLiSet t-center poppins"><span id="navItemContainer" :class="navList[5].class">{{navList[5].content}}</span></li>
                     </ul>
                 </div>
+
+                <div class="burger-menu point flex-col a-c-n"  @click="burgerClick = !burgerClick">
+                <div :class="{menu: true, 'turn-down': !burgerClick, slowDown: true}" id="bar-1"></div>
+                <transition name="custom-classes-transition"
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideOutRight">
+                    <div class="menu" id="bar-2" v-if="burgerClick"></div>
+                </transition>
+                <div :class="{menu: true, 'turn-up': !burgerClick, slowDown: true}" id="bar-3"></div>
+            </div>
             </div>
         </nav>
 
@@ -41,18 +54,50 @@
         </div>
     </div>
 
+    <div :class="{'menu-drop poppins': true, drop: !burgerClick, undrop: burgerClick}">
+
+        <div class="drop-menu-contain">
+            <ul v-for="item in dropMenuItems" :key="item.id">
+                <li>
+                    <router-link :to="item.link" style="text-decoration: none; color: rgba(0,0,0,.5)" v-html="item.content" class="poppins">{{item.content}}</router-link>
+                </li>
+            </ul>
+
+            <div class="actOnDrop flex-col a-c poppins" style="margin-top: 3rem;">
+                <span class="loginBtn drop-act darkTxt" v-if="!loggedIn">
+                Login
+                </span>
+                <span class="startBtn black-act drop-act" v-if="!loggedIn">
+                Get Started
+                </span>
+                <span class="loginBtn black-act drop-act" v-if="loggedIn">
+                Logout
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
 </template>
 
 <script>
 export default {
   data () {
     return {
-      navList: [{ content: 'Browse Schools', class: 'def', link: '/search-school' }, { content: 'Explore visas for <select><option>Canada</option><option>Nigeria</option></select>', class: 'def', link: '/explore' }, { content: 'How it works', class: 'def', link: '/' }, { content: '<span v-on:click="splitNavStatus = !splitNavStatus">Get started</span>', class: 'blue-btn', link: '/travooler' }, { content: '|', class: 'def', link: '' }, { content: 'Log in', class: 'def', link: '/search-school' }],
+      burgerClick: true,
+      navList: [{ content: 'Browse Schools', class: 'def', link: '/' }, { content: 'Explore visas for <select><option>Canada</option><option>USA</option></select>', class: 'def', link: '/' }, { content: 'How it works', class: 'def', link: '/' }, { content: '<span v-on:click="splitNavStatus = !splitNavStatus">Get started</span>', class: 'blue-btn', link: '/' }, { content: '|', class: 'def', link: '' }, { content: 'Log in', class: 'def', link: '/' }],
       splitNavStatus: true,
       navListStatus: true,
       navStat: true,
       noNavListRoutes: [ 'onboarding', 'travoolerOnboarding', 'setPassword', 'signIn' ],
-      noNav: [ 'setPassword', 'signIn', 'payment' ]
+      noNav: [ 'setPassword', 'signIn', 'payment' ],
+      travAgent: true,
+      dropMenuItems: [
+        { content: 'Browse Schools', class: 'def', link: '/ ', id: 1 }, { content: 'Explore visas for <select style="background: white;border: 1px dotted black; border-radius: 3px; padding: 2px;"><option>Canada</option><option>USA</option></select>', class: 'def', link: '/', id: 2 }, { content: 'How it works', class: 'def', link: '/', id: 3 }, { content: 'Travel Agencies', class: 'def', link: '/', id: 4 }
+      ],
+      loggedIn: false
     }
   },
   methods: {
@@ -63,6 +108,10 @@ export default {
   updated () {
     var route = this.$router.currentRoute.name
 
+    if (window.innerWidth < 480) {
+      this.travAgent = false
+    }
+
     if (this.noNavListRoutes.includes(route)) {
       this.navListStatus = false
     }
@@ -72,6 +121,10 @@ export default {
   },
   created () {
     var route = this.$router.currentRoute.name
+
+    if (window.innerWidth < 480) {
+      this.travAgent = false
+    }
 
     if (this.noNavListRoutes.includes(route)) {
       this.navListStatus = false
@@ -84,148 +137,5 @@ export default {
 </script>
 
 <style scoped>
-.splitNav>div>div>p{
-    color: rgb(221, 221, 221);
-}
-.splitNav>div>div>h2{
-    font-weight: bolder;
-    font-weight: 900;
-    color: white;
-    font-size: 2.2rem;
-    padding: 1rem 0 2.5rem 0;
-}
-.splitNav>div>div>button{
-    border: 0;
-    background: rgb(31, 196, 127);
-    padding: .5rem .8rem;
-    color: black;
-    font-size: 1.2rem;
-    font-weight: 500;
-    border-radius: 5px;
-    width: fit-content;
-}
-.schoolNav{
-    background-color: #232323;
-    /* background-image: url('~@/assets/STASHIP-UNIVERS-IMG/traveler.svg');
-    background-size: unset; */
-}
-.travNav{
-    background: rgb(99,99,99);
-    /* background-image: url('~@/assets/STASHIP-UNIVERS-IMG/travel-booking.svg');
-    background-size: initial; */
-}
-.preNav{
-    background: #101820;
-    box-sizing: border-box;
-    height: fit-content;
-}
-.preNav-ul {
-    width: 87vw;
-    color: white;
-    font-weight: 300;
-}
-.preNav-ul > li{
-    color: white;
-    padding: .8rem 0;
-    font-weight: lighter;
-    border-radius: 0;
-    display: inline-block;
-    list-style-type: none;
-    margin-left: .5rem;
-    margin-right: 1rem;
-    font-family: Raleway, Arial;
-    font-size: .9rem;
-    height: auto;
-}
-.preNav-ul> li:hover, .preNav-ul> li:active{
-    border-bottom: 2px solid white;
-}
-
-.navTrav{
-    position: fixed;
-    top: 0;
-    z-index: 50;
-}
-nav{
-    width: 100vw;
-    height: auto;
-    box-shadow: 0 8px 24px rgba(0,0,0,.15);
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: .6rem 0;
-}
-#logo{
-    width: 9rem;
-    height: 2.5rem;
-}
-.secondLiSet{
-    color: black;
-    display: inline-block;
-    list-style-type: none;
-    margin-left: .5rem;
-    margin-right: .5rem;
-    font-family: 'Poppins', 'Josefin Sans', Raleway, Arial;
-    font-weight: 600;
-    font-size: .9rem;
-    color: rgb(0,0,0,.5);
-    cursor: pointer;
-}
-.secondLiSet:active{
-    color: blue;
-}
-.nav-flex{
-    width: 87vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 3rem .5rem 3rem;
-}
-.def:hover{
-    color:rgb(44, 135, 240);
-}
-.blue-btn{
-    background-color: rgb(44, 135, 240);
-    z-index: 1;
-    position: relative;
-    font-size: inherit;
-    font-family: inherit;
-    color: white;
-    padding: 0.5em 1em;
-    outline: none;
-    border-radius: 5px;
-}
-
-.blue-btn::before {
-    content: '';
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 5px;
-    border: 4px solid rgb(44, 135, 240);
-    transform-origin: center;
-    transform: scale(1);
-}
-.blue-btn:hover {
-    cursor: pointer;
-    border-radius: 5px;
-}
-.blue-btn:hover::before {
-    transition: all 0.75s ease-in-out;
-    transform-origin: center;
-    transform: scale(1.75);
-    opacity: 0;
-    border-radius: 5px;
-}
-
-#navItemContainer{
-    padding: .5rem;
-    border-radius: 5px;
-}
+@import url(~@/assets/styles/navbar.css);
 </style>

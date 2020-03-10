@@ -168,3 +168,21 @@
 .scroll-x::-webkit-scrollbar{
   display: none;
 }
+
+@media screen and (max-width: 480px) {
+  .m-100{
+    width: 100vw;
+  }
+  .flex-col-m{
+    flex-direction: column;
+  }
+  .flex-row-m{
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .w-100{
+    width: 55vw;
+  }
+}

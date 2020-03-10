@@ -1,0 +1,225 @@
+@media screen and (max-width: 480px) {
+    .desktop-nav{
+        display: none;
+    }
+    .non-mobile{
+        display: none;
+    }
+}
+@media screen and (min-width: 480px) {
+    .burger-menu{
+        display: none;
+    }
+}
+.drop-act{
+    width: 85%;
+    padding: .6rem;
+    border: 1.5px solid black;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+.black-act{
+    background: black;
+    color: white;
+}
+.drop-menu-contain{
+    margin-top: 1.5rem;
+}
+.drop-menu-contain>ul>li{
+    margin-bottom: .8rem;
+}
+.drop-menu-contain>ul>li:hover{
+    color: rgb(44, 216, 144);
+}
+.drop-menu-contain>ul{
+    margin-left: 1.5em;
+}
+.drop{
+    border-top: 3px solid black;
+    transition: height .8s;
+    height: 320px;
+}
+.undrop{
+    height: 0px;
+    border: none;
+    transition: height .8s;
+}
+.menu-drop{
+    width: 90vw;
+    position: fixed;
+    top: 120px;
+    border-radius: 5px;
+    background: white;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.turn-down{
+    transform: rotate(45deg);
+}
+.turn-up{
+    transform: rotate(-45deg);
+}
+.menu{
+    width: 28px;
+    height: 3px;
+    background: black;
+    border-radius: 25px;
+    margin: .135rem 0;
+}
+.slowDown{
+    transition: transform 1s;
+}
+#bar-2{
+    width: 36px;
+}
+
+.splitNav>div>div>p{
+    color: rgb(221, 221, 221);
+}
+.splitNav>div>div>h2{
+    font-weight: bolder;
+    font-weight: 900;
+    color: white;
+    font-size: 2.2rem;
+    padding: 1rem 0 2.5rem 0;
+}
+.splitNav>div>div>button{
+    border: 0;
+    background: rgb(31, 196, 127);
+    padding: .5rem .8rem;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5px;
+    width: fit-content;
+}
+.schoolNav{
+    background-color: #232323;
+    /* background-image: url('~@/assets/STASHIP-UNIVERS-IMG/traveler.svg');
+    background-size: unset; */
+}
+.travNav{
+    background: rgb(99,99,99);
+    /* background-image: url('~@/assets/STASHIP-UNIVERS-IMG/travel-booking.svg');
+    background-size: initial; */
+}
+.preNav{
+    background: #101820;
+    box-sizing: border-box;
+    height: fit-content;
+}
+.preNav-ul {
+    width: 87vw;
+    color: white;
+    font-weight: 300;
+}
+.preNav-ul > li{
+    color: white;
+    padding: .8rem 0;
+    font-weight: lighter;
+    border-radius: 0;
+    list-style-type: none;
+    margin-left: .5rem;
+    margin-right: 1rem;
+    font-family: Raleway, Arial;
+    font-size: .9rem;
+    height: auto;
+}
+.inline{
+    display: inline-block;
+}
+.preNav-ul> li:hover, .preNav-ul> li:active{
+    border-bottom: 2px solid white;
+}
+
+.navTrav{
+    position: fixed;
+    top: 0;
+    z-index: 50;
+}
+nav{
+    width: 100vw;
+    height: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: .2rem 0;
+}
+#logo{
+    width: 12rem;
+    height: 4rem;
+    margin-left: -.5rem;
+}
+.secondLiSet{
+    color: black;
+    display: inline-block;
+    list-style-type: none;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    font-family: 'Poppins', 'Josefin Sans', Raleway, Arial;
+    font-weight: 600;
+    font-size: .9rem;
+    color: rgb(0,0,0,.5);
+    cursor: pointer;
+}
+.secondLiSet:active{
+    color: blue;
+}
+.nav-flex{
+    width: 87vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem .5rem 3rem;
+}
+.def:hover{
+    color:rgb(44, 135, 240);
+}
+.blue-btn{
+    background-color: black;
+    z-index: 1;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    color: white;
+    padding: 0.5em 1em;
+    outline: none;
+    border-radius: 5px;
+}
+
+.blue-btn::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    border: 4px solid rgb(44, 135, 240);
+    transform-origin: center;
+    transform: scale(1);
+}
+.blue-btn:hover {
+    cursor: pointer;
+    border-radius: 5px;
+}
+.blue-btn:hover::before {
+    transition: all 0.75s ease-in-out;
+    transform-origin: center;
+    transform: scale(1.75);
+    opacity: 0;
+    border-radius: 5px;
+}
+
+#navItemContainer{
+    padding: .5rem;
+    border-radius: 5px;
+}

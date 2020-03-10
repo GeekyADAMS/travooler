@@ -3,8 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Travooler">
+    <meta name="msapplication-TileImage" content="/favicon.ico">
+    <meta name="msapplication-TileColor" content="#000">
+
+    <link rel="icon" href="/favicon.ico">
     <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/esm/popper.min.js">
@@ -18,31 +25,52 @@
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/animate.css" >
 
-    <link rel="icon" type="image/gif/png" href="assets/images/favicon.jpg">
+    <link rel="icon" type="image/gif/png" href="/favicon.ico">
+
+    <script data-pace-options='{ "ajax": false }' src="/js/pace.min.js"></script>
+	  <link href="/css/pace-theme-flash.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="assets/javascript/aos.js"></script>
     <script src="https://use.fontawesome.com/653b606b4a.js"></script>
-    <title>univers_app</title>
+    <title>Travooler</title>
 
     <style>
       *{
         margin: 0;
         padding: 0;
       }
-     body{
-       margin: 0;
-       padding: 0;
-       overflow-x: hidden;
-       width: 100vw;
-     }
+      body{
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100vw;
+        max-width: none;
+      }
+      @media screen and (max-width: 480px) {
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        body::-webkit-scrollbar-track{
+            display: block;
+        }
+      }
+      
+      #app{
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100vw;
+        max-width: none;
+      }
+      
     </style>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but univers_app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>Turn on javascript for best experience on Travooler</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
