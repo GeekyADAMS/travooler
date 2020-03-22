@@ -1,0 +1,306 @@
+.marg-butt-8{
+    margin-bottom: .8rem;
+  }
+  .leftArrow{
+    position: relative;
+    left: 1.5rem;
+  }
+  .rightArrow{
+    position: relative;
+    right: 1.5rem;
+  }
+  .arrowFloat{
+    padding: .8rem;
+    box-shadow: 12px 0 56px rgba(255,255,255,1);
+    background: white;
+  }
+  .options{
+    width: 90vw;
+    height: auto;
+  }
+  .filterOps{
+    padding: .8rem 1.4rem;
+    background: rgb(32, 32, 32);
+    color: white;
+    width: max-content;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 .5rem;
+    text-align: center;
+    border-radius: 5px;
+  }
+  .clickBlue{
+    background: blue;
+    transition: background 1s ease-in-out;
+  }
+  .hoverBlue:hover{
+    background: blue;
+    transition: background .45s ease-in-out;
+  }
+  .clickOrange{
+    background: orange;
+    transition: background 1s ease-in-out;
+  }
+  .hoverOrange:hover{
+    background: orange;
+    transition: background .45s ease-in-out;
+  }
+  .clickGreen{
+    background: rgb(40, 224, 200);
+    transition: background 1s ease-in-out;
+  }
+  .hoverGreen:hover{
+    background: rgb(40, 224, 200);
+    transition: background .45s ease-in-out;
+  }
+  .filterOptionsDiv{
+    margin: 1.5rem 0;
+  }
+  .loadMoreBtn{
+    margin: .5rem 0;
+    background: black;
+    padding: .5rem .8rem;
+    font-size: .9rem;
+    font-weight: 500;
+    width: fit-content;
+    border: 0;
+    border-radius: 5px;
+  }
+  .loadMoreBtn:hover{
+    opacity: .7;
+  }
+  .result-scroll-contain{
+    width: 100%;
+    height: auto;
+    padding: .5rem 0 0 1.3rem;
+    margin-top: 1rem;
+  }
+  .opaque {
+    opacity: 0;
+  }
+  .favorited {
+    color: red;
+  }
+  .continue {
+    color: rgb(27, 192, 233);
+    background: white;
+  }
+  .continue:hover {
+    background: rgb(27, 192, 233);
+    color: white;
+  }
+  .third-bottom {
+    box-sizing: border-box;
+    padding: 0 0.4rem 1rem 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .n-full-divider {
+    background: rgba(0, 0, 0, 0.2);
+    margin: 0.4rem 0.5rem;
+    height: 1.5px;
+    box-sizing: border-box;
+    width: 93%;
+  }
+  .second-bottom {
+    margin-top: 0.5rem;
+    padding: 0 0.6rem;
+    box-sizing: border-box;
+  }
+  .t-deg,
+  .t-cost {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .match-yes {
+    background: rgb(27, 192, 233);
+    color: white;
+    padding: 0.2rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+  }
+  
+  .credit-score-score {
+    background: green;
+    color: white;
+    padding: 0.25rem 0.35rem;
+    border-radius: 3px;
+  }
+  .credit-score {
+    margin-right: 0.3rem;
+  }
+  .school-details {
+    margin-left: 0.6rem;
+  }
+  .school-details > .tag,
+  .cs-text {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.55rem;
+  }
+  .school-details > .school-name {
+    color: rgba(0, 0, 0, 0.9);
+    font-weight: 700;
+    margin: 0.2rem 0;
+  }
+  .school-details > .school-location,
+  .cs-text {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+    font-size: 0.65rem;
+  }
+  .bottom-sect-option {
+    height: 9.5rem;
+    padding: 1rem 0.3rem 0.2rem 0.3rem;
+  }
+  .top-sect-options {
+    height: 2rem;
+    background: rgb(30, 235, 235, 0.18);
+    padding: 0 0.5rem;
+    min-width: 105%;
+    box-sizing: border-box;
+  }
+  
+  .each-result-card {
+    width: 20rem;
+    min-width: 20rem;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    padding-bottom: 0.5rem;
+    padding-right: .8rem;
+    margin-right: 1.5rem;
+    cursor: pointer;
+    margin-top: 2rem;
+  }
+  .each-result-card:hover {
+    border: 2px solid rgba(9, 87, 204, 0.6);
+  }
+  .resultScreen {
+    background: rgb(235, 235, 235);
+    margin-top: 0.7rem;
+    padding: 0.4rem .4rem 1rem .4rem;
+    width: 94%;
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+  .search-body::-webkit-scrollbar {
+    display: none;
+  }
+  .search-body::-webkit-scrollbar-track {
+    display: block;
+  }
+  .schoolSectTitle {
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+  .search-results {
+    background: rgba(2555, 255, 255, 0.65);
+    margin-top: 1rem;
+    border-top: 1px solid rgb(83, 83, 83);
+    padding: 1rem 1rem 1.5rem 2rem;
+    /*pointer-events: none;*/
+  }
+  .btn-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+  .full-divider-2 {
+    height: 1.5px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    margin-top: 5px;
+  }
+  .btn-pressed:hover {
+    opacity: 0.7;
+  }
+  .w100p {
+    width: 100%;
+  }
+  .filter {
+    transition: height 5s linear 0.5s;
+  }
+  .search-page-main {
+    background: rgb(243, 243, 243);
+    width: 100vw;
+    padding-top: 2vh;
+  }
+  .progress-bar {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .progress-circle {
+    background: rgba(0, 0, 0, 0.2);
+    height: 1.1rem;
+    width: 1.1rem;
+    border-radius: 25px;
+  }
+  .progress-line {
+    height: 0.3rem;
+    width: 23.5rem;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .normalBlue{
+    background: blue;
+  }
+  .stageTags {
+    margin: 0.5rem 1.1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.65;
+  }
+  .done {
+    background: black;
+  }
+  
+  .full-divider {
+    height: 3px;
+    background: rgba(0, 0, 0, 0.05);
+    margin-top: 0.7rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .search-body {
+    padding-top: 1rem;
+    overflow-x: hidden;
+  }
+  .search-page-main {
+    padding-top: 10rem;
+  }
+  .searchBodyFull{
+    width: 100vw;
+    margin: 0 5rem;
+  }
+  
+  .disableSearchBody{
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  @media screen and (max-width: 480px) {
+    .each-result-card {
+      width: 16.5rem;
+      min-width: 15rem;
+    }
+    .resultScreen{
+      margin-left: -1rem;
+      width: 80vw;
+      overflow-x: hidden;
+    }
+  }
+
+  .list-complete-item {
+    transition: all 1s;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .list-complete-leave-active {
+    position: absolute;
+  }

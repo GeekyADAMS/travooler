@@ -108,7 +108,7 @@ recruiting.</p>
         <section class="third-sect flex-col a-c">
           <div class="third-sect-contain flex-col a-c">
             <h2 class="primary poppins">Built for people who don't want to be limited in potential.</h2>
-            <p class="primary poppins">Discover how much good yourself by trusting Travooler.</p>
+            <p class="primary poppins">Discover how much good you can do yourself by trusting Travooler.</p>
           </div>
         </section>
 
@@ -123,7 +123,7 @@ currently applying on Travooler.</p>
           </div>
         </section>
 
-        <section class="sixth poppins flex-col a-c w90 s-w100 m-auto">
+        <section class="sixth poppins flex-col a-c w90 s-w95 m-auto">
           <h1>A better, easier application experience</h1>
           <div class="flex-row a-c flex-col-m">
             <div v-for="vals in businessOptions" :key="vals.tag" class="flex-col a-c point trans-anime-up">

@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import schools from './modules/schools'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    schools
+  },
   state: {
     mobile: false
   },

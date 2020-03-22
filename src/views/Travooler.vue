@@ -1,15 +1,18 @@
-<template>
+chrome<template>
     <div>
-      <section class="flex-col a-c hero">
+      <section class="flex-col a-c hero s-w100">
         <img class="gradIcon" src="@/assets/STASHIP-UNIVERS-IMG/gradCap.png">
-        <h1 class="hero-header t-center darkTxt">
-          Where would you like to <span class="blueTxt"> <u class="changingText"></u></span>
+        <h1 class="hero-header t-center Poppins darkTxt s-w100">
+          Go from applicant to traveler<!--<span class="blueTxt"> <u class="changingText"></u></span>-->
         </h1>
-        <p class="heroCaption w55 poppins darkTxt t-center">
-          We help you find, compare and apply for visa, top immigration programs and international admissions, all on your smartphone.
+        <p class="heroCaption w55 poppins darkTxt t-center s-w95">
+          Travooler is an intelligent travel platform connecting eligible travelers to schools, immigration
+programs and rush passport courier in Canada, United States, UK, Europe and more. All through one
+single platform.
         </p>
 
-        <div class="flex-row w70 a-c" style="padding: 1rem;">
+        <button class="black-btn hover-fade poppins point">Continue to Portal</button>
+        <!--<div class="flex-row w70 a-c" style="padding: 1rem;">
           <div class="h7 w50 searchDiv flex-row" style="padding: 0rem 0 0rem 4rem;">
             <span class="flex-row a-c" style="padding-right: 6rem;">
               <img src="@/assets/STASHIP-UNIVERS-IMG/location-icon.png" alt="" class="locationIcon bit-fade tiny">
@@ -26,9 +29,9 @@
           </div>
           <div class="h7 w20 searchBtn">
           </div>
-        </div>
+        </div>-->
 
-        <div class="brand-align flex-row a-n-c space-btw w90 wrap">
+        <div class="brand-align flex-row a-n-c space-btw w90 wrap" v-if="mobile">
           <img src="@/assets/cbnc.png" alt="">
           <img src="@/assets/forbes.png" alt="">
           <img src="@/assets/mashable.png" alt="">
@@ -40,60 +43,107 @@
       </section>
 
       <section class="secondSect flex-col a-c">
-        <h1 class="poppins darkTxt">Using Travooler is easy</h1>
-        <div class="flex-row a-c-n space-btw w80" style="padding-top: 2.5rem;">
+        <h1 class="Poppins darkTxt w50 s-w95 t-center">Built for travelers by people who care</h1>
+        <div class="flex-row flex-col-m a-n-c space-btw w80" style="padding-top: 2.5rem;">
           <img src="@/assets/STASHIP-UNIVERS-IMG/laptop-ui-render.png" id="laptop-ui">
-          <div class="flex-col a-n-c">
+          <div class="flex-col a-n-c w40 s-w100">
             <span class="signup-steps poppins darkTxt">
               <h4>Introduce yourself</h4>
-              <p>Create a profile that gets you noticed</p>
+              <p>Travooler helps you build, track and manage your
+profile to make your most important travel history,
+extracurricular, academic, work and personal
+background standout.</p>
             </span>
             <span class="signup-steps poppins darkTxt">
-              <h4>See relevant jobs in your inbox</h4>
-              <p>You can also filter and search through postings</p>
+              <h4>Live Chat with travel agents</h4>
+              <p>Get in touch with the best agents in seconds. Right
+here in the app. Have instant responses and more
+meaningful conversations than via email.</p>
             </span>
             <span class="signup-steps poppins darkTxt">
-              <h4>Apply instantly</h4>
-              <p>Save time and apply to as many jobs as you'd like</p>
+              <h4>Automated consultation</h4>
+              <p>For any travel request you need to provide pretty
+much the same answers for agents to be able to
+verify your eligibility and assist you. We want to
+make it easier, so we automate it!</p>
+            </span>
+            <span class="signup-steps poppins darkTxt">
+              <h4>Agent profiles</h4>
+              <p>Instantly confirm your travel agent information using
+their AgentPass, before you pay. Check their
+ratings, trust score, experience and average service
+fees.</p>
+            </span>
+            <span class="signup-steps poppins darkTxt">
+              <h4>Loans for travel</h4>
+              <p>Access up to N10million proof of funds loans from
+our partners without collateral. Money shouldn’t be
+the reason you don’t get to travel, not again!</p>
             </span>
 
-            <button type="button" id="signup-orange" class="poppins">Sign up</button>
+            <button type="button" id="signup-orange" class="poppins point">Sign up</button>
           </div>
         </div>
       </section>
 
       <section class="third-sect flex-col a-c w100">
-        <div class="flex-row a-c-n space-btw w60">
-          <div class="text-div poppins darkTxt w30"  style="margin-right: 2rem;">
-            <h2>Expert agents to process your travels</h2>
-            <p>With the largest on-demand travel agent network, explore, message and apply from your device. Gone are the days of endless paperwork.</p>
+        <div class="flex-row flex-col-rev-m a-c-n space-btw w60">
+          <div class="text-div poppins darkTxt w30 w90-m s-ml-1p2"  style="margin-right: 2rem;">
+            <h2 class="m-lh s-w95 s-mt-3 w20">Find your perfect travel</h2>
+            <p class="s-lh">Travooler helps you find the perfect school,
+apply for visa and explore your eligibility for
+permanent residence programs worldwide.</p>
             <span class="flex-row a-c-n space-btw" style="margin-top: 2.5rem; width: 10rem;">
               <img src="@/assets/STASHIP-UNIVERS-IMG/logo-icon.svg" alt="">
               <img src="@/assets/STASHIP-UNIVERS-IMG/logo-icon.png" alt="">
               <img src="@/assets/STASHIP-UNIVERS-IMG/logo-icon2.png" alt="">
               <img src="@/assets/STASHIP-UNIVERS-IMG/logo-icon3.png" alt="">
             </span>
+
+            <div class="flex-row a-c-n  mt-3">
+            <button type="button" class="poppins point s-btn-text black-btn-default t-green mr-2">Sign up</button> <button class="poppins hover-fill point" style="border-bottom: 2px solid rgb(44, 240, 214); background: transparent; padding: .5rem; color: black; font-weight: 500; border-top: 0; border-left: 0; border-right: 0;">Explore travel</button></div>
           </div>
-          <img src="@/assets/STASHIP-UNIVERS-IMG/ladies-code.jpg" alt="" class="thirdsect-illus1">
+          <img src="@/assets/STASHIP-UNIVERS-IMG/ladies-code.jpg" alt="" class="thirdsect-illus1 s-lr-1 s-w95">
         </div>
 
-        <div class="flex-row a-c-n space-btw w60">
-          <img src="@/assets/STASHIP-UNIVERS-IMG/man-purple.jpg" alt="" class="thirdsect-illus2">
-          <div class="text-div poppins darkTxt w30">
-            <h2 class="h2">Digital travel passport, totally free</h2>
-            <p>Get a digital travel pass that can be shared with any agent. No need to email multiple documents or expect calls requesting your information.</p>
+        <div class="flex-row flex-col-m a-n-c space-btw w90">
+          <img src="@/assets/STASHIP-UNIVERS-IMG/man-purple.jpg" alt="" class="thirdsect-illus2 ">
+          <div class="text-div poppins darkTxt w30 s-mt-3 s-w95">
+            <h2 class="h2 m-lh s-w95">Expert agents to process your travels</h2>
+            <p class="w90-m">With the largest on-demand travel agent
+network, Travooler will help you at every
+step of your travel application.</p>
             <div class="spacer" style="height: .5rem"></div>
-            <button type="button" id="signup-orange" class="poppins">Who's hiring</button>
+            <button type="button" class="poppins point s-btn-text black-btn-default t-green mt-3">Chat with an agent</button>
             <div class="spacer" style="height: 1rem"></div>
           </div>
+          <div class="text-div poppins darkTxt w30 s-w95">
+            <h2 class="h2 m-lh s-w95 s-mt-3">Digital 360&deg; traveler profile, totally free</h2>
+            <p class="w90-m">Easily access, track and share your traveler profile
+and credentials with any agent via your TravelerPass,
+anytime. No need to email multiple documents or
+expect calls requesting your information.</p>
+            <div class="spacer" style="height: .5rem"></div>
+            <button type="button" class="poppins point s-btn-text black-btn-default t-green mt-3">Get your profile</button>
+            <div class="spacer" style="height: 1rem"></div>
+
+            <div class="black-line mt-1"></div>
+            <p class="poppins mt-1 w90-m" style="font-size: .7rem; color: black" >
+              A TravelerPass can replace traditional profile and document paperwork and speed up your
+travel process. It's safer, quicker, and completely free for everyone.
+            </p>
+            <p class="poppins mt-p5 w90-m" style="font-size: .85rem; color: black;">Note: Only persons you share your TravelerPass with can view your profile,
+online. Please see our Privacy Policy for more information and details of how
+to opt out.</p>
+          </div>
         </div>
 
-        <div class="flex-row a-c-n space-btw w60">
+        <div class="flex-row a-c-n space-btw w60" v-if="mobile">
           <div class="text-div poppins darkTxt w30"  style="margin-bottom: 6rem;">
             <h2 class="h3">New success<br>stories everyday</h2>
             <div id="container">
               <div class="item-1">
-                <p class="p-right">"Travooler helped me secure my Masters degree admission with $10,000 entrance scholarship, which has set me up for a promising future in the business world."</p>
+                <p class="p-right s-w95">"Travooler helped me secure my Masters degree admission with $10,000 entrance scholarship, which has set me up for a promising future in the business world."</p>
                 <div class="client-details">
                   <p class="p-right c-name">D'Arius</p>
                   <p class="p-right c-location">Alabama A&M</p>
@@ -118,14 +168,20 @@
           <img src="@/assets/STASHIP-UNIVERS-IMG/dev-girl.jpg" alt="" class="thirdsect-illus3">
         </div>
 
-        <div class="flex-row a-c-n space-btw w60">
+        <div class="flex-row flex-col-m a-c-n space-btw w60">
           <img src="@/assets/STASHIP-UNIVERS-IMG/mobile-render.jpg" alt="" class="thirdsect-illus3">
-          <div class="text-div poppins darkTxt w30">
-            <h2 class="h2">Earn $200 credit for free when you apply using our agents</h2>
-            <p style="margin-top: 2rem;">Book your first travel and earn $200 towards your next eligible purchases. Valid for 12 months*.</p>
-            <div class="spacer" style="height: .5rem"></div>
-            <div class="spacer" style="height: 2rem"></div>
-            <div class="flex-row a-c-n get-app-icons">
+          <div class="text-div poppins darkTxt w30 s-mt-3 s-w95 s-ml-2">
+            <h2 class="h2">Earn $200 credit when you tell your friends</h2>
+            <p style="margin-top: 2rem;">When they book their first travel through Travooler,
+you earn up to $200 paid to your bank or as voucher
+(amazon, iTunes).</p>
+
+            <button type="button" class="poppins point s-btn-text black-btn-default t-green mt-3">Refer Now</button>
+
+            <div class="Poppins mt-2 w-80 s-w95" style="font-weight: bold; font-size: 1.8rem;">New success stories everyday</div>
+            <div class="spacer" style="height: .5rem" v-if="mobile"></div>
+            <div class="spacer" style="height: 2rem" v-if="mobile"></div>
+            <div class="flex-row a-c-n get-app-icons" v-if="mobile">
               <img src="@/assets/App-Store-Grey.png" alt="" style="margin-right:.5rem;" class="noDisplay">
               <img src="@/assets/Google-Play-Grey.png" alt="" class="noDisplay">
             </div>
@@ -133,20 +189,12 @@
         </div>
       </section>
 
-      <section class="sixth poppins flex-col a-c">
-        <h1>Simple pricing, exceptional earnings.</h1>
-        <div class="flex-row a-c">
-          <div class="flex-col a-c">
-            <h2>$0.00</h2>
-            <p>to save</p>
-          </div>
-          <div class="flex-col a-c">
-            <h2>0.5%</h2>
-            <p>fee for investing</p>
-          </div>
-          <div class="flex-col a-c">
-            <h2>2.0%</h2>
-            <p>fee for investing</p>
+      <section class="sixth poppins flex-col a-c w90 s-w95 m-auto">
+        <h1 style="color: black;">A better, easier travel experience</h1>
+        <div class="flex-row a-c flex-col-m">
+          <div v-for="(opt, index) in businessOpts" :key="index" class="flex-col a-c point trans-anime-up">
+            <h2 style="opacity: .85;">{{opt.content}}</h2>
+            <p style="opacity: .85;">{{opt.tag}}</p>
           </div>
         </div>
       </section>
@@ -157,297 +205,23 @@
 
 <script>
 export default {
-  datat () {
+  data () {
     return {
-      costmodel: [
-        { quantity: '$0.00', tag: 'to save' },
-        { quantity: '0.5%', tag: 'fee for investing' },
-        { quantity: '2.0%', tag: 'APY*' }
+      businessOpts: [
+        { content: 'For Traveles', tag: 'Get Started' },
+        { content: 'For Agents', tag: 'Book a demo' },
+        { content: 'Contact us', tag: 'support@travooler.com' }
       ]
+    }
+  },
+  computed: {
+    mobile () {
+      return this.$store.state.mobile
     }
   }
 }
 </script>
 
 <style scoped>
-.changingText{
-  animation: change2 30s ease-in-out 1000;
-  animation-delay: 0s;
-  animation-fill-mode: forwards;
-  transition: 1.5s ease-in-out;
-}
-@keyframes change2{
-  0% {
-    color: rgb(44, 135, 240);
-  }
-  33.33% {
-    color: rgb(0, 128, 75);
-  }
-  66.66% {
-    color: orange;
-  }
-  100% {
-    color: rgb(44, 135, 240);
-  }
-}
-.changingText:after{
-    content: "";
-    animation: change1 30s ease-in-out 1000;
-    animation-delay: 0s;
-    animation-fill-mode: forwards;
-    transition: 1.5s ease-in-out;
-}
-@keyframes change1{
-    0% {
-      content: "travel";
-    }
-    33.33% {
-      content: "study";
-      color: rgb(0, 128, 75);
-    }
-    66.66% {
-      content: "live";
-      color: orange;
-    }
-    100% {
-      content: "travel"
-    }
-}
-.get-app-icons{
-  width: 100%;
-}
-.get-app-icons>img{
-  width: 11rem;
-  height: 4.5rem;
-  cursor: pointer;
-  float: left;
-}
-.get-app-icons>img:hover{
-  opacity: .5;
-}
-.container{
-  overflow-x: hidden;
-  width: 30vw;
-}
-.item-1, .item-2, .item-3{
-  position: absolute;
-  display: block;
-  width: 60%;
-  animation-duration: 20s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-.item-1{
-  animation-name: anim-1;
-}
-.item-2{
-  animation-name: anim-2;
-}
-.item-3{
-  animation-name: anim-3;
-}
-
-@keyframes anim-1{
-  0%, 8.3% {left: -100%; opacity: 0;}
-  8.3%, 25% {left: 25%; opacity: 1;}
-  33.33%, 100% {left: 110%; opacity: 0;}
-}
-@keyframes anim-2{
-  0%, 33.33% {left: -100%; opacity: 0;}
-  41.63%, 58.29% {left: 25%; opacity: 1;}
-  66.66%, 100% {left: 110%; opacity: 0;}
-}
-@keyframes anim-3{
-  0%, 66.66% {left: -100%; opacity: 0;}
-  74.96%, 91.62% {left: 25%; opacity: 1;}
-  100% {left: 110%; opacity: 0;}
-}
-
-.sixth{
-  background: rgb(44, 135, 240);
-  height: auto;
-  width: 100vw;
-  color: white;
-  padding: 7rem 0 6rem 0;
-}
-
-.sixth>h1{
-  font-size: 3.35rem;
-  font-weight: 500;
-}
-.sixth>div{
-  margin-top: 2.5rem;
-}
-.sixth>div>div{
-  width: 20vw;
-  background: white;
-  color: #101820;
-  padding: 2.5rem 2.5rem;
-  border-radius: 5px;
-  margin: .8rem;
-}
-.sixth>div>div>h2{
-  font-size: 1.5rem;
-  font-family: 600;
-}
-.sixth>div>div>h2{
-  font-size: 2.4rem;
-  font-family: 700;
-}
-.sixth>div>div>p{
-  font-size: 1.4rem;
-  font-family: 700;
-}
-
-.thirdsect-illus1{
-  width: 26rem;
-  height: 21rem;
-}
-.thirdsect-illus2{
-  width: 14rem;
-  height: 22rem;
-  border-radius: 0 50px 0 0;
-}
-.thirdsect-illus3{
-  width: 24rem;
-  height: 24rem;
-}
-.text-div>span>img{
-  width: 1.5rem;
-  height: 1.5rem;
-}
-.third-sect{
-  padding: 5rem 0 0 0;
-}
-.third-sect>div{
-  margin-bottom: 8rem;
-}
-.text-div>h2{
-  font-size: 2.2rem;
-  font-weight: 900;
-  width: 20vw;
-  margin-bottom: 1rem;
-}
-.text-div>.h2{
-  width: 30vw;
-  font-weight: bolder;
-}
-.text-div>.h3{
-  padding: .6rem;
-  background: white;
-  text-align: right;
-  position: relative;
-  left: 4rem;
-  width: 30vw;
-  margin-bottom: 3rem;
-  font-weight: bolder;
-}
-.text-div>p{
-  font-weight: 600;
-  font-size: .95rem;
-  opacity: .7;
-}
-.p-right{
-  text-align: right;
-  width: 25vw;
-}
-.client-details{
-  margin-top: 1.5rem;
-}
-.c-name{
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-#signup-orange{
-  padding: .6rem 1.2rem;
-  background: rgb(255, 0, 34);
-  color: white;
-  font-size: .9rem;
-  font-weight: 600;
-  border-radius: 5px;
-  width: fit-content;
-  border: 0;
-  margin-top: 1rem;
-}
-#signup-orange:hover{
-  cursor: pointer;
-  background: rgba(255, 0, 34, .5);
-}
-.signup-steps{
-  margin-right: 6rem;
-}
-.signup-steps{
-  margin-bottom: 1rem;
-}
-.signup-steps>h4{
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: .2rem;
-}
-.signup-steps>p{
-  opacity: .5;
-  font-weight: 500;
-  font-size: .5;
-}
-  #laptop-ui{
-    width: 31rem;
-    height: 21rem;
-  }
-  .secondSect{
-    background: rgba(175, 178, 182, 0.15);
-    padding: 6rem;
-  }
-  .secondSect>h1{
-    font-size: 3rem;
-    font-weight: bolder;
-    font-family: 'Josefin Sans';
-    margin-bottom: 3rem;
-  }
-  .brand-align{
-    margin-top: 5rem;
-    margin-bottom: .5rem;
-  }
-  .brand-align>img{
-    width: 5rem;
-    height: 2rem;
-  }
-  .location-search{
-    border: 0;
-    padding-left: .7rem;
-    width: auto;
-    background: white;
-  }
-  .searchDiv{
-    border-radius: 50px 0 0 50px;
-    background: white;
-    border: 2px solid #101820;
-    opacity: .7;
-  }
-  .searchBtn{
-    border-radius: 0 50px 50px 0;
-    border: 2px solid #101820;
-    background: #101820;
-  }
-  .hero{
-    padding: 12rem 1rem 1rem 1rem;
-  }
-  .gradIcon{
-    padding-bottom: 1rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  .hero-header{
-    font-size: 3.5rem;
-    font-weight: 900;
-    font-family: 'Josefin Sans';
-    max-width: 60vw;
-  }
-  .heroCaption{
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: .5rem;
-    opacity: .7;
-    max-width: 55vw;
-    margin: 1.5rem 0 3rem 0;
-  }
+  @import url(~@/assets/styles/travooler.css);
 </style>

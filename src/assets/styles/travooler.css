@@ -1,0 +1,312 @@
+@media screen and (max-width: 480px) {
+
+    .sixth>div>div{
+      width: 50vw;
+    }
+    .sixth>h1{
+      width: 100vw;
+      text-align: center;
+    }
+
+}
+@media screen and (min-width: 480px) {
+
+    .sixth>div>div{
+      width: 20vw;
+    }
+
+}
+
+.changingText{
+    animation: change2 30s ease-in-out 1000;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    transition: 1.5s ease-in-out;
+  }
+  @keyframes change2{
+    0% {
+      color: rgb(44, 135, 240);
+    }
+    33.33% {
+      color: rgb(0, 128, 75);
+    }
+    66.66% {
+      color: orange;
+    }
+    100% {
+      color: rgb(44, 135, 240);
+    }
+  }
+  .changingText:after{
+      content: "";
+      animation: change1 30s ease-in-out 1000;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      transition: 1.5s ease-in-out;
+  }
+  @keyframes change1{
+      0% {
+        content: "travel";
+      }
+      33.33% {
+        content: "study";
+        color: rgb(0, 128, 75);
+      }
+      66.66% {
+        content: "live";
+        color: orange;
+      }
+      100% {
+        content: "travel"
+      }
+  }
+  .get-app-icons{
+    width: 100%;
+  }
+  .get-app-icons>img{
+    width: 11rem;
+    height: 4.5rem;
+    cursor: pointer;
+    float: left;
+  }
+  .get-app-icons>img:hover{
+    opacity: .5;
+  }
+  .container{
+    overflow-x: hidden;
+    width: 30vw;
+  }
+  .item-1, .item-2, .item-3{
+    position: absolute;
+    display: block;
+    width: 60%;
+    animation-duration: 20s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .item-1{
+    animation-name: anim-1;
+  }
+  .item-2{
+    animation-name: anim-2;
+  }
+  .item-3{
+    animation-name: anim-3;
+  }
+  
+  @keyframes anim-1{
+    0%, 8.3% {left: -100%; opacity: 0;}
+    8.3%, 25% {left: 25%; opacity: 1;}
+    33.33%, 100% {left: 110%; opacity: 0;}
+  }
+  @keyframes anim-2{
+    0%, 33.33% {left: -100%; opacity: 0;}
+    41.63%, 58.29% {left: 25%; opacity: 1;}
+    66.66%, 100% {left: 110%; opacity: 0;}
+  }
+  @keyframes anim-3{
+    0%, 66.66% {left: -100%; opacity: 0;}
+    74.96%, 91.62% {left: 25%; opacity: 1;}
+    100% {left: 110%; opacity: 0;}
+  }
+  
+  
+  
+  .thirdsect-illus1{
+    width: 26rem;
+    height: 21rem;
+  }
+  .thirdsect-illus2{
+    width: 14rem;
+    height: 22rem;
+    border-radius: 0 50px 0 0;
+  }
+  .thirdsect-illus3{
+    width: 24rem;
+    height: 24rem;
+  }
+  .text-div>span>img{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .third-sect{
+    padding: 5rem 0 0 0;
+  }
+  .third-sect>div{
+    margin-bottom: 8rem;
+  }
+  .text-div>h2{
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+  .text-div>.h2{
+    font-weight: bolder;
+  }
+  .text-div>.h3{
+    padding: .6rem;
+    background: white;
+    text-align: right;
+    position: relative;
+    left: 4rem;
+    width: 30vw;
+    margin-bottom: 3rem;
+    font-weight: bolder;
+  }
+  .text-div>p{
+    font-weight: 600;
+    font-size: 1.1rem;
+    opacity: .6;
+  }
+  .p-right{
+    text-align: right;
+    width: 25vw;
+  }
+  .client-details{
+    margin-top: 1.5rem;
+  }
+  .c-name{
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  #signup-orange{
+    padding: .6rem 1.2rem;
+    background: black;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 5px;
+    width: fit-content;
+    border: 0;
+    margin-top: 1rem;
+  }
+  #signup-orange:hover{
+    opacity: .7;
+  }
+  .signup-steps{
+    margin-right: 6rem;
+  }
+  .signup-steps{
+    margin-bottom: 3rem;
+  }
+  .signup-steps>h4{
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: .8rem;
+  }
+.signup-steps>p{
+    opacity: .5;
+    font-weight: 500;
+    font-size: .5;
+}
+#laptop-ui{
+    width: 31rem;
+    height: 21rem;
+}
+.secondSect{
+    background: rgba(175, 178, 182, 0.15);
+    padding: 6rem;
+}
+.secondSect>h1{
+    font-size: 3rem;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+}
+.brand-align{
+    margin-top: 5rem;
+    margin-bottom: .5rem;
+}
+.brand-align>img{
+    width: 5rem;
+    height: 2rem;
+}
+.location-search{
+    border: 0;
+    padding-left: .7rem;
+    width: auto;
+    background: white;
+}
+.searchDiv{
+    border-radius: 50px 0 0 50px;
+    background: white;
+    border: 2px solid #101820;
+    opacity: .7;
+}
+.searchBtn{
+    border-radius: 0 50px 50px 0;
+    border: 2px solid #101820;
+    background: #101820;
+}
+.hero{
+    padding: 12rem 0 1rem 0;
+}
+.gradIcon{
+    padding-bottom: 1rem;
+    width: 3rem;
+    height: 3rem;
+}
+.black-btn{
+    padding: 1rem 1rem;
+    background: black;
+    font-size: 1.8rem;
+    color: rgb(44, 240, 214);
+    border: none;
+    border-radius: 5px;
+}
+
+.hero-header{
+    font-size: 3.5rem;
+    font-weight: 900;
+    /* font-family: 'Josefin Sans'; */
+    max-width: 60vw;
+}
+.heroCaption{
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: .5rem;
+    opacity: .6;
+    margin: 1.5rem 0 3rem 0;
+}
+.black-line{
+    height: 2px;
+    width: 15%;
+    background: black;
+}
+
+.sixth{
+    background: rgb(165, 253, 212);
+    height: auto;
+    margin-top: 8rem;
+    color: white;
+    padding: 9rem 0 6rem 0;
+    border-bottom: 3px solid rgb(47, 211, 223);
+  }
+  
+  .sixth>h1{
+    font-size: 3.35rem;
+    font-weight: 500;
+    color: black;
+  }
+  .sixth>div{
+    margin-top: 2.5rem;
+  }
+  .sixth>div>div{
+    background: black;
+    color: #101820;
+    padding: 2.5rem 2.5rem;
+    border-radius: 5px;
+    margin: .8rem;
+  }
+  .sixth>div>div>h2{
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    color: rgb(47, 211, 223)
+  }
+  
+  .sixth>div>div>p{
+    font-size: 1.2rem;
+    text-align: center;
+    color: rgb(47, 211, 223)
+  }
