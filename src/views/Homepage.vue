@@ -1,11 +1,17 @@
 <template>
     <div>
         <section class="hero flex-row">
-            <div class="hero-texts flex-col a-n-c poppins">
+            <div class="blob">
+  <!-- This SVG is from https://codepen.io/Ali_Farooq_/pen/gKOJqx -->
+  <svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+  <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+  </svg>
+</div>
+            <div class="hero-texts flex-col a-n-c poppins" style="z-index: 1;">
               <h2>Go from applicant <br>to traveler.</h2>
               <p>Travooler is the modern, all-in-one platform to find the perfect school and
 immigration programs. <br v-if="!mobile">Start your future.</p>
-              <button type="button" class="anime-btn-1 btn1 poppins">Get started</button>
+              <button type="button" class="anime-btn-1 btn1 poppins" v-scroll-reveal.reset>Get started</button>
             </div>
             <div class="hero-illus">
               <img src="@/assets/card-hand-removebg-preview.png">
@@ -19,8 +25,14 @@ immigration programs. <br v-if="!mobile">Start your future.</p>
 
         <section class="third-sect flex-col a-c">
           <div class="third-sect-contain flex-col a-c">
-            <h2 class="primary poppins">Helping 1M+ students find admission (and more!) every year</h2>
-            <p class="primary poppins">Our portal helps students connect with the best schools in Canada, U.S., Africa and Europe. Travooler makes
+            <div class="blob">
+  <!-- This SVG is from https://codepen.io/Ali_Farooq_/pen/gKOJqx -->
+  <svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+  <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+  </svg>
+</div>
+            <h2 class="primary poppins" v-scroll-reveal>Helping 1M+ students find admission (and more!) every year</h2>
+            <p class="primary poppins" v-scroll-reveal>Our portal helps students connect with the best schools in Canada, U.S., Africa and Europe. Travooler makes
 finding and applying for the perfect school a seamless part of the process instead of a chore.</p>
           </div>
         </section>
@@ -38,12 +50,12 @@ scholarships and everything in between!</p>
         </section>
 
         <section class="fifth flex-col a-c">
-          <h2 class="primary poppins">Experience the travooler difference</h2>
-          <p class="poppins sub-title">We are building the next-generation community for students and professionals, making it effortless to find
+          <h2 class="primary poppins" v-scroll-reveal>Experience the travooler difference</h2>
+          <p class="poppins sub-title" v-scroll-reveal>We are building the next-generation community for students and professionals, making it effortless to find
 the perfect opportunities like schools, scholarships and immigration programs.</p>
 
           <div class="flex-row flex-col-m w85 s-w100 space-btw pad-1-lr mt-5 a-c">
-            <div class="students w40 s-w90r flex-col a-n-c trans-anime-up point">
+            <div class="students w40 s-w90r flex-col a-n-c trans-anime-up point" v-scroll-reveal.reset>
               <p class="poppins primary stutag">STUDENTS</p>
               <h1 class="Poppins primary stu-title">Find a program</h1>
               <p class=" w60p s-w90r poppins stu-desc">Travooler is at the forefront of global education, and lets you search and apply to top programs.</p>
@@ -51,7 +63,7 @@ the perfect opportunities like schools, scholarships and immigration programs.</
               <p class="btn-line-1 poppins point"><span>Find a school</span><span style="margin-left: 1rem;"> &#8594;</span> </p>
             </div>
 
-            <div class=" w40 s-w90r flex-col a-n-c s-mt-1 trav-comm trans-anime-up point">
+            <div class=" w40 s-w90r flex-col a-n-c s-mt-1 trav-comm trans-anime-up point" v-scroll-reveal.reset>
               <p class="poppins primary stutag">FOR SCHOOLS AND RECRUITMENT ADVISORS</p>
               <h1 class="Poppins primary stu-title">Boost student requirement</h1>
               <p class="s-w90r poppins stu-desc">Travooler is the largest early talent education recruiting platform to boost student sourcing and
@@ -64,7 +76,7 @@ recruiting.</p>
 
           <div class="flex-row flex-col-m w85 s-w100 space-btw pad-1-lr mt-2 a-c">
 
-            <div class=" w40 s-w90r flex-col a-n-c trav-comm trans-anime-up point">
+            <div class=" w40 s-w90r flex-col a-n-c trav-comm trans-anime-up point" v-scroll-reveal.reset>
               <p class="poppins primary stutag trans-anime-up">TRAVOOLER COMMUNITY</p>
               <h1 class="Poppins primary stu-title">Get Introduced</h1>
               <p class="s-w90r poppins stu-desc">Ask anything from career counselling, to visa guidance, working abroad and freelancing. A chat is only as
@@ -94,7 +106,7 @@ recruiting.</p>
               </select>
             </div>
 
-            <div class="travelers w40 s-w90r s-mt-1 flex-col a-n-c trans-anime-up point">
+            <div class="travelers w40 s-w90r s-mt-1 flex-col a-n-c trans-anime-up point" v-scroll-reveal.reset>
               <p class="poppins primary stutag">ALL TRAVELLERS</p>
               <h1 class="Poppins primary stu-title">Explore visa options</h1>
               <p class=" w60p s-w90r poppins stu-desc">Use Travooler to find immigration programs, and get help from personal travel assistants</p>
@@ -106,10 +118,17 @@ recruiting.</p>
         </section>
 
         <section class="third-sect flex-col a-c">
+        <div class="blob">
+  <!-- This SVG is from https://codepen.io/Ali_Farooq_/pen/gKOJqx -->
+  <svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 350">
+  <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z"/>
+  </svg>
+</div>
           <div class="third-sect-contain flex-col a-c">
-            <h2 class="primary poppins">Built for people who don't want to be limited in potential.</h2>
-            <p class="primary poppins">Discover how much good you can do yourself by trusting Travooler.</p>
+            <h2 class="primary poppins" v-scroll-reveal>Built for people who don't want to be limited in potential.</h2>
+            <p class="primary poppins" v-scroll-reveal>Discover how much good you can do yourself by trusting Travooler.</p>
           </div>
+
         </section>
 
         <section class="forth flex-row">

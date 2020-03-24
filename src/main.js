@@ -3,6 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router/index.js'
 import store from './store'
+import VueScrollReveal from 'vue-scroll-reveal'
 import Navbar from './components/navbar'
 import Footer from './components/footer'
 import prefooter from './components/prefooter'
@@ -12,6 +13,13 @@ import TravNav from './components/navbar-travooler'
 // import chillax from './plugins/chillax'
 
 // Vue.use(chillax)
+Vue.use(VueScrollReveal, {
+  class: 'v-scroll-reveal',
+  duration: 2000,
+  scale: 1,
+  distance: '30px',
+  mobile: false
+})
 Vue.config.productionTip = false
 
 Vue.component('nav-bar', Navbar)
