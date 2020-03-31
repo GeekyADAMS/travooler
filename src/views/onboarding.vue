@@ -555,6 +555,9 @@ export default {
   },
   updated () {
     this.$refs.dialogBox.scrollTop = this.$refs.dialogBox.scrollHeight
+  },
+  created () {
+    this.$store.dispatch('checkMobile')
   }
 }
 </script>

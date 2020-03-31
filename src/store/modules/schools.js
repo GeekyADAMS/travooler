@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 const state = {
   chosenFilterOptions: {
@@ -79,7 +80,21 @@ const state = {
       country: 'Denmark',
       courseOffered: 'Physical Sciences'
     }
-  ]
+  ],
+  schoolDetails: {
+    name: '',
+    state: '',
+    score: '',
+    status: '',
+    degree: '',
+    appFee: '',
+    country: '',
+    course: '',
+    cost: '',
+    sendState: 'Submit',
+    count: 0
+  },
+  schools: []
 }
 
 const getters = {
@@ -94,15 +109,68 @@ const getters = {
   },
   eachCardDetails: state => {
     return state.eachCardDetails
+  },
+  schoolDetails: state => {
+    return state.schoolDetails
   }
 }
 
 const mutations = {
+  newSchool: (state, school) => {
+    state.schools.unshift(school)
+  },
+  processing: state => {
+    state.schoolDetails.sendState = 'Sending...'
+  },
+  done: state => {
+    let details = state.schoolDetails
 
+    details.sendState = 'Done'
+    details.sendState = 'Submit'
+
+    details.name = ''
+    details.state = ''
+    details.score = ''
+    details.status = ''
+    details.degree = ''
+    details.appFee = ''
+    details.country = ''
+    details.course = ''
+    details.cost = ''
+    details.count += 1
+  }
 }
 
 const actions = {
+  async addSchool ({ commit }, schoolData) {
+    const response = await axios.post('https://travooler.herokuapp.com/schools', {
+      name: schoolData.name,
+      state: schoolData.state,
+      score: schoolData.score,
+      status: schoolData.status,
+      degree: schoolData.degree,
+      appFee: schoolData.appFee,
+      country: schoolData.country,
+      course: schoolData.course,
+      cost: schoolData.cost
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          commit('done')
+        }
+        console.log(response.status)
+      }, (error) => {
+        console.log(error)
+      })
 
+    commit('newSchool', response.data)
+  },
+  processing: context => {
+    context.commit('processing')
+  },
+  done: context => {
+    context.commit('done')
+  }
 }
 
 export default {

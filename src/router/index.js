@@ -1,41 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import homepage from '@/components/Homepage'
-// import explorepage from '@/components/Explore-Travels'
-// import travoolerpage from '@/components/Travooler'
-// import searchpage from '@/components/search-page'
+import homepage from '@/views/Homepage'
+import explorepage from '@/views/Explore-Travels'
+import travoolerpage from '@/views/Travooler'
+import searchpage from '@/views/search-page'
 import onboarding from '@/views/onboarding'
 import travoolerOnboarding from '@/views/travooler-onboarding'
-// import signIn from '@/components/sign-in'
-// import setPassword from '@/components/set-password'
-// import payment from '@/components/payment'
+import signIn from '@/views/sign-in'
+import setPassword from '@/views/set-password'
+import payment from '@/views/payment'
+import postSchools from '@/views/post-schools'
+import admin from '@/views/admin'
 
 Vue.use(VueRouter)
 
-function lazyLoad (view) {
-  return () => import(`@/views/${view}.vue`)
-}
+// function lazyLoad (view) {
+//   return () => import(`@/views/${view}.vue`)
+// }
 
 const routes = [
   {
     path: '/',
     name: 'homepage',
-    component: lazyLoad('Homepage')
+    component: homepage
   },
   {
     path: '/explore',
     name: 'explorepage',
-    component: lazyLoad('Explore-Travels')
+    component: explorepage
   },
   {
     path: '/travooler',
     name: 'travoolerpage',
-    component: lazyLoad('Travooler')
+    component: travoolerpage
   },
   {
     path: '/search-school',
     name: 'searchpage',
-    component: lazyLoad('search-page')
+    component: searchpage
   },
   {
     path: '/Get-Started',
@@ -50,17 +52,27 @@ const routes = [
   {
     path: '/set-password',
     name: 'setPassword',
-    component: lazyLoad('set-passsword')
+    component: setPassword
   },
   {
     path: '/sign-in',
     name: 'signIn',
-    component: lazyLoad('sign-in')
+    component: signIn
   },
   {
     path: '/payment',
     name: 'payment',
-    component: lazyLoad('payment')
+    component: payment
+  },
+  {
+    path: '/post-schools',
+    name: 'postSchools',
+    component: postSchools
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: admin
   }
 ]
 
