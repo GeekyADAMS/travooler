@@ -158,9 +158,10 @@
 
 .hero{
   /* background: rgb(44, 135, 240);*/
-  background: rgb(133, 35, 224);
+  background: rgba(133, 35, 224, .2);
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   overflow: hidden;
 }
 
@@ -191,19 +192,18 @@
 }
 
 .hero-texts{
-  height: 100vh;
   width: 50vw;
 }
 .hero-texts>h2{
-  color: white;
-  font-weight: 500;
+  color: rgb(25, 26, 37);
+  font-weight: 700;
   font-size: 3.5rem;
   margin-top: 8rem;
   margin-bottom: 1.5rem;
   line-height: 3.7rem;
 }
 .hero-texts>p{
-  color: white;
+  color: rgb(25, 26, 37);
   font-weight: 500;
   font-size: 1.3rem;
   width: 35rem;

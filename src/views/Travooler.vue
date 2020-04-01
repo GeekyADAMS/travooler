@@ -1,6 +1,6 @@
-chrome<template>
+<template>
     <div>
-      <section class="flex-col a-c hero s-w100">
+      <section class="flex-col a-c hero pad s-w100">
         <img class="gradIcon" src="@/assets/STASHIP-UNIVERS-IMG/gradCap.png">
         <h1 class="hero-header t-center Poppins darkTxt s-w100">
           Go from applicant to traveler<!--<span class="blueTxt"> <u class="changingText"></u></span>-->

@@ -35,9 +35,9 @@
       </div>
     </div>
 
-    <div class="flex-row a-c s-w100">
-      <span class="flex-row a-c poppins" style="background: white;">
-        <input class="search-box poppins w70 s-w35" placeholder="Search for a school" type="text" style="padding: 10px 32px; border: 0; background: white; border-radius: 3px; font-size: 1.2rem; border-radius: 5px 0 0 5px; box-shadow: 0 10px 16px rgba(0,0,0,.15);" v-model="searchTerm" @focus="searchBoxFocus = true" @blur="searchBoxFocus = false"
+    <div class="flex-row a-c w90 s-w95 m-auto">
+      <span class="flex-row w100p a-c poppins" style="background: white;">
+        <input class="search-box poppins" placeholder="Search for a school" type="text" style="padding: 10px 32px; border: 0; background: white; border-radius: 3px; font-size: 1.2rem; border-radius: 5px 0 0 5px; box-shadow: 0 10px 16px rgba(0,0,0,.15); color: rgba(0,0,0,.7);width: 100%" v-model="searchTerm" @focus="searchBoxFocus = true" @blur="searchBoxFocus = false"
         />
         <img class="btn-icon point" src="@/assets/STASHIP-UNIVERS-IMG/search_icon.png" style="padding: 0 .4rem; width: 2rem; height: 1.65rem;" />
       </span>
@@ -131,8 +131,8 @@
 
                   <div
                     class="each-result-card flex-col a-c wrap list-complete-item"
-                    v-for="sectionCards in filteredSearch.slice(0, this.noOfDisplayedResult)"
-                    :key="sectionCards.schoolName"
+                    v-for="(sectionCards, index) in filteredSearch.slice(0, this.noOfDisplayedResult)"
+                    :key="index"
                   >
                     <div class="top-sect-options flex-row a-c-n space-btw w100p">
                       <img
@@ -150,16 +150,16 @@
                           <p class="tag">NEW</p>
                           <p
                             class="school-name"
-                          >{{sectionCards.schoolName}}</p>
+                          >{{sectionCards.name}}</p>
                           <p
                             class="school-location"
-                          >{{sectionCards.schoolLocation}}</p>
+                          >{{sectionCards.state}}, {{sectionCards.country}}</p>
                         </div>
                         <div class="credit-score flex-col a-c">
                           <p class="poppins t-center cs-text">Credit score</p>
                           <p
                             class="credit-score-score poppins t-center"
-                          >{{sectionCards.creditScore}}</p>
+                          >{{sectionCards.admissionScore}}</p>
                         </div>
                       </div>
 
@@ -168,14 +168,13 @@
                           <p class="poppins t-center cs-text">Total cost</p>
                           <p
                             class="t-cost poppins t-center flex-row a-c"
-                          ><img src="@/assets/STASHIP-UNIVERS-IMG/cash.png" class="bit-icon">{{sectionCards.totalCost}}</p>
+                          ><img src="@/assets/STASHIP-UNIVERS-IMG/cash.png" class="bit-icon">{{sectionCards.schoolCost}}</p>
                         </div>
 
                         <div class="credit-score flex-col a-c">
                           <p class="poppins t-center cs-text">status</p>
-                          <p class="match-yes poppins t-center">Match</p>
+                          <p class="match-yes poppins t-center">{{sectionCards.status}}</p>
                         </div>
-
                         <div class="credit-score flex-col a-c">
                           <p class="poppins t-center cs-text">Degree</p>
                           <p
@@ -184,7 +183,7 @@
                         </div>
                       </div>
 
-                      <div class="n-full-divider"></div>
+                      <div class="n-full-divider" style="margin-bottom: 20px; margin-top: 10px"></div>
 
                       <div class="third-bottom flex-row a-c-n space-btw w100p">
                         <div class="credit-score flex-col">
@@ -192,7 +191,7 @@
                           <p
                             class="t-cost poppins darkTxt"
                             style="color: black;"
-                          >{{sectionCards.bookAmount}}</p>
+                          >{{sectionCards.applicationFee}}</p>
                         </div>
                         <button
                           class="poppins continue"
@@ -221,7 +220,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -241,11 +240,15 @@ export default {
     }
   },
   computed: {
-    filteredSearch: function () {
+    ...mapGetters(['availableCountries', 'availableDegrees', 'availableCourses']),
+    eachCardDetails () {
+      return this.$store.getters.eachCardDetails
+    },
+    filteredSearch () {
       let results = []
       if (this.filterStatus === true || this.searchBoxFocus === true) {
         results = this.eachCardDetails.filter(sectionCards => {
-          let schoolname = sectionCards.schoolName.toLowerCase()
+          let schoolname = sectionCards.name.toLowerCase()
           return schoolname.match(this.searchTerm.toLowerCase())
         })
       } else {
@@ -254,8 +257,7 @@ export default {
         })
       }
       return results
-    },
-    ...mapGetters(['availableCountries', 'availableDegrees', 'availableCourses', 'eachCardDetails'])
+    }
   },
   methods: {
     countryOptionClicked (index) {
@@ -272,7 +274,11 @@ export default {
       this.availableCourses.map(course => { course.selected = false })
       this.availableCourses[index].selected = true
       this.multiSearchTerm.selectedCourse = this.availableCourses[index].tag
-    }
+    },
+    ...mapActions(['fetchSchools'])
+  },
+  created () {
+    this.fetchSchools()
   }
 }
 </script>
