@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import schools from './modules/schools'
+import admin from './modules/admin'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    schools
+    schools,
+    admin
   },
   state: {
     mobile: false,

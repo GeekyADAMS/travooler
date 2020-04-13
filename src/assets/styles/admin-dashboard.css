@@ -1,0 +1,42 @@
+.topNav{
+    box-shadow: 0 20px 32px rgba(0,0,0,.06);
+    padding: 0 2rem 0 2rem;
+    background: white;
+}
+.logo{
+    width: 12rem;
+    height: 4rem;
+}
+.left-drawer{
+    background: white;
+}
+.main-body{
+}
+.off-white{
+    background: rgb(240, 243, 255);
+}
+.icons{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.uncheck{
+    opacity: .25;
+}
+.checked{
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(0,0,0,.12);
+    border-radius: 10px;
+}
+.nav-tab{
+    padding: 1rem 3rem;
+    background: white;
+}
+.nav-tab:hover{
+    opacity: .7;
+    box-shadow: 0 0 12px rgba(0,0,0,.12);
+    border-radius: 10px;
+}
+
+.main-body{
+    padding: 2rem 2rem;
+}

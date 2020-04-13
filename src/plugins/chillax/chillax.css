@@ -1,6 +1,9 @@
 /* You cant see me */
 @import url("~@/assets/fonts/Gilroy.css");
-
+.sticky{
+  position: sticky;
+  top: 0;
+}
 .flex-row{
   display: flex;
   flex-direction: row;
@@ -36,6 +39,9 @@
 }
 .w100{
   width: 100vw;
+}
+.w100p-max{
+  max-width: 100%;
 }
 .w90-min{
   min-width: 90vw;
@@ -105,7 +111,7 @@
   height: 20vh;
 }
 .h10{
-  height: 20vh;
+  height: 10vh;
 }
 .h00{
   height: 0vh;
@@ -143,11 +149,27 @@
 .blueTxt{
   color: rgb(44, 135, 240);
 }
+.bg-white{
+  background: white;
+}
 .s-lh{
   line-height: 1.3rem;
 }
 .m-lh{
   line-height: 3rem;
+}
+.round-circle{
+  border-radius: 100%;
+}
+.round-15{
+  border-radius: 15px;
+}
+.round-edge-btn{
+  border-radius: 25px;
+  padding: .2rem;
+}
+.round-edge-sm{
+  border-radius: 10px;
 }
 .s-btn-text{
   font-size: 1rem;
@@ -171,7 +193,11 @@
   color: rgb(42, 228, 181);
 }
 .bit-fade{
-  opacity: .8;
+  opacity: .7;
+}
+.fit-all{
+  width: fit-content;
+  height: fit-content;
 }
 .tiny{
   width: 1.0rem;
@@ -187,6 +213,18 @@
 .h100p{
   height: 100%;
 }
+.h10p{
+  height: 10%;
+}
+.h10p-min{
+  min-height: 10%;
+}
+.h90p{
+  height: 90%;
+}
+.h75p{
+  height: 75%;
+}
 .w50p{
   width: 50%;
 }
@@ -198,6 +236,12 @@
   height: 0px;
   overflow-y: hidden;
   transition: height 5s linear .5s;
+}
+.light{
+  opacity: .65;
+}
+.hide-overflow{
+  overflow: hidden;
 }
 .hide-overflow-x{
   overflow-x: hidden;
@@ -211,21 +255,44 @@
 .roundDiv-sm{
   border-radius: 100px;
 }
+.hide{
+  opacity: 0;
+}
+.no-display{
+  display: none;
+}
 .scroll-x{
   overflow-x: scroll;
 }
 .scroll-x::-webkit-scrollbar{
   display: none;
 }
-
+.scroll-y{
+  overflow-y: scroll;
+}
+.scroll-y::-webkit-scrollbar{
+  display: none;
+}
+.mt-n10{
+  margin-top: -10rem;
+}
+.mt-n5{
+  margin-top: -5rem;
+}
 .m-auto{
   margin:auto;
+}
+.mt-pz5{
+  margin-top: .05rem;
 }
 .mt-p3{
   margin-top: .3rem;
 }
 .mt-8p5{
   margin-top: 8.5rem
+}
+.red{
+  color: rgb(221, 54, 42);
 }
 .mt-p5{
   margin-top: .5rem;
@@ -255,10 +322,16 @@
   margin-left: -2rem;
 }
 .ml-1{
-  margin-left: 1rem
+  margin-left: 1rem;
+}
+.ml-p5{
+  margin-left: .5rem;
 }
 .ml-8{
   margin-left: 8rem;
+}
+.ml-3{
+  margin-left: 3rem;
 }
 .ml-2{
   margin-left: 2rem;
@@ -284,14 +357,203 @@
 .mb-3{
   margin-bottom: 3rem;
 }
+.mb-p5{
+  margin-bottom: .5rem;
+}
+.w5p{
+  width: 5%;
+}
 .w90p{
   width: 90%;
+}
+.w92p{
+  width: 92%;
+}
+.w98p{
+  width: 98%;
+}
+.w100p{
+  width: 100%;
+}
+.w80p{
+  width: 80%;
+}
+.w70p{
+  width: 70%;
+}
+.w60p{
+  width: 60%;
+}
+.w50p{
+  width: 50%;
+}
+.w40p{
+  width: 40%;
+}
+.w35p{
+  width: 35%;
+}
+.w30p{
+  width: 30%;
+}
+.w25p{
+  width: 25%;
+}
+.w20p{
+  width: 20%;
+}
+.w15p{
+  width: 15%;
+}
+.w10p{
+  width: 10%;
 }
 .b-shadow{
   box-shadow: 0 0 24px rgba(0,0,0,.15);
   border-radius: 15px;
 }
+.text-1{
+  font-size: 1rem;
+}
+.text-2{
+  font-size: 1.1rem;
+}
+.text-3{
+  font-size: 1.3rem;
+}
+.text-5{
+  font-size: 1.5rem;
+}
+.text-20{
+  font-size: 2rem;
+}
 
+.fade-1{
+  opacity: .1;
+}
+.fade-2{
+  opacity: .2;
+}
+.fade-3{
+  opacity: .3;
+}
+.fade-4{
+  opacity: .4;
+}
+.fade-5{
+  opacity: .5;
+}
+.fade-6{
+  opacity: .6;
+}
+.fade-7{
+  opacity: .7;
+}
+.fade-8{
+  opacity: .8;
+}
+.fade-9{
+  opacity: .9;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+.border-box{
+  box-sizing: border-box;
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(236, 170, 26, 0.3);
+  color: rgb(94, 94, 94);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tip-right{
+  top: -5px;
+  left: 105%;
+}
+.tip-right::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.tip-left {
+  top: -5px;
+  right: 105%;content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.tip-left::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.tip-top {
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+.tip-top::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip .tooltiptext {
+  top: -5px;
+  right: 105%;
+}
+.tooltip .tooltiptext::after{
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(236, 170, 26, 0.3);
+}
+.fixed{
+  position: fixed;
+}
 .blob {
   position: absolute;
   top: 0;

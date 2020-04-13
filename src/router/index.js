@@ -11,6 +11,7 @@ import setPassword from '@/views/set-password'
 import payment from '@/views/payment'
 import postSchools from '@/views/post-schools'
 import admin from '@/views/admin'
+import superAdmin from '@/views/super-admin.vue'
 
 Vue.use(VueRouter)
 
@@ -73,6 +74,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: admin
+  },
+  {
+    path: '/admin/dashboard',
+    name: 'superAdmin',
+    component: superAdmin
   }
 ]
 

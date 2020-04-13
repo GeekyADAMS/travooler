@@ -73,7 +73,7 @@ const mutations = {
 
 const actions = {
   async addSchool ({ commit }, schoolData) {
-    const response = await axios.post('https://travooler.herokuapp.com/schools', {
+    const response = await axios.post('https://travooler.herokuapp.com/schools/published', {
       name: schoolData.name,
       state: schoolData.state,
       score: schoolData.score,
@@ -102,7 +102,8 @@ const actions = {
     context.commit('done')
   },
   async fetchSchools ({ commit }) {
-    const response = await axios.get('https://travooler.herokuapp.com/schools')
+    console.log('fetching....')
+    const response = await axios.get('https://travooler.herokuapp.com/schools/published')
 
     commit('fetch', response.data)
   }
