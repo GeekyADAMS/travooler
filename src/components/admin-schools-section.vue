@@ -1,70 +1,5 @@
 <template>
     <div class="h90 w98p border-box flex-col a-c-n" style="background: rgba(255, 255, 255, .5); padding: .7rem 1.5rem;">
-        <!-- starts modal -->
-        <div class="fixed school-details-modal flex-col a-c-n bg-white w50 border-box no-display">
-            <div class="w100p flex-row space-btw">
-                <span></span>
-                <span class="poppins red point">Cancel</span>
-            </div>
-            <div class="flex-row w100p ">
-                <img src="@/assets/img/icons/smallschool_dribble.jpg" alt="" width="100px" height="100px">
-
-                <div class="flex-col ml-2 mt-2">
-                    <h3 class="poppins fade-7"> Cambridge University,</h3>
-                    <p class="poppins fade-4 mt-p5"> Toronto, Canada.</p>
-
-                    <div class="flex-col mt-2">
-                        <div class="flex-row a-c fade-7">
-                            <h4 class="poppins">School ID:</h4>
-                            <p class="poppins ml-1 fade-7">5e833f671d903d00043d7852</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Course Offered:</h4>
-                            <p class="poppins ml-1 fade-7">Accountancy</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Degree Offered:</h4>
-                            <p class="poppins ml-1 fade-7">Masters</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Total Cost:</h4>
-                            <p class="poppins ml-1 fade-7">$ 35000</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Application Fee:</h4>
-                            <p class="poppins ml-1 fade-7">$ 2000</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Status</h4>
-                            <p class="poppins ml-1 fade-7">Open</p>
-                        </div>
-                        <div class="flex-row mt-p5 fade-7">
-                            <h4 class="poppins">Admission Score</h4>
-                            <p class="poppins ml-1 fade-7">90%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-row  mt-3 w100p space-btw">
-                <div class="row arrows">
-                    <img src="@/assets/img/icons/arrow-left.svg" alt="">
-                    <img src="@/assets/img/icons/arrow-right.svg" alt="" class="ml-1">
-                </div>
-                <div class="flex-row a-c">
-                <button class="round-edge-btn btn-3 modal-act t-center poppins point">
-                    Publish
-                </button>
-                <button class="round-edge-btn btn-1 modal-act t-center poppins point ml-1">
-                    Edit details
-                </button>
-                <button class="round-edge-btn btn-2 t-center poppins  modal-act ml-1 point">
-                    Delete
-                </button>
-                </div>
-            </div>
-        </div>
-        <!--Ends modal-->
 
         <div class="flex-row w100p w100p-max a-c space-btw">
             <div class="flex-col">
@@ -72,15 +7,23 @@
                 <p class="poppins fade-4">Perform actions on available schools by Travooler</p>
             </div>
 
+            <portal to="navbar-status">
+              <div class="poppins darkTxt text-2"><p>Status</p></div>
+            </portal>
+
             <div class="flex-row a-c">
-                <button class="tooltip tip-bottom poppins darkTxt addNew point text-5 border-box ml-1">+<span class="tooltiptext text-2">Add New</span></button>
-                <button class="ml-1 round-edge-btn pub-btn fit-all point" @click="showPublished"><div class="poppins dakTxt text-1 scale-on-hover">Published schools</div></button>
+                <button class="tooltip poppins darkTxt addNew point text-5 border-box ml-1">+<span class="tooltiptext text-2">Add New</span></button>
+                <button class="ml-1 round-edge-btn pub-btn fit-all point" @click="showPublished"><div class="poppins dakTxt text-1 scale-on-hover" disabled>Published schools</div></button>
                 <button class="draft-btn ml-1 round-edge-btn fit-all point scale-on-hover" @click="showDraft"><div class="poppins dakTxt text-1">Drafts</div></button>
+                <button class="draft-btn ml-1 round-edge-btn fit-all point scale-on-hover" @click="showDraft"><div class="poppins dakTxt text-1">Publish All</div></button>
+                <button class="tooltip2 poppins darkTxt delete no-border point text-5 border-box ml-1" @click="deleteBatch"><img src="@/assets/img/icons/bin.png" alt="" width="37px" height="37px"><span class="tooltiptext2 text-2">Delete ({{selectedDrafts.length}})</span></button>
+                <button class="tooltip2 poppins darkTxt point delete text-5 border-box ml-1" @click="publishBatchSchools(selectedDrafts)"><img src="@/assets/img/icons/publish-icon.png" alt="" width="37px" height="37px"><span class="tooltiptext2 text-2">Publish ({{selectedDrafts.length}})</span></button>
             </div>
         </div>
 
         <div class="flex-row a-c space-btw w100p h75p mt-2">
             <div :class="{'flex-col w100p-max a-c-n bg-white h100p hide-overflow-y round-edge-sm allSchools': true, 'w92p': publishedClicked, 'w5p': draftClicked}">
+
             <div :class="{'table-head w100p h10p flex-row a-c-n poppins border-box': true, hide: draftClicked}" style="box-shadow: 0 12px 24px rgba(0,0,0,.05);">
                 <span class="w20p ml-p5" style="">School ID</span>
                 <span class="w20p ml-1" style="">Name</span>
@@ -148,8 +91,8 @@
                 <button class="round-edge-btn btn-1 modal-act t-center poppins point ml-1">
                     Edit details
                 </button>
-                <button class="round-edge-btn btn-2 t-center poppins  modal-act ml-1 point">
-                    Delete
+                <button class="round-edge-btn btn-2 t-center poppins  modal-act ml-1 point" @click="deletePublishedSchool">
+                    {{deleteStatus}}
                 </button>
                 </div>
             </div>
@@ -157,7 +100,7 @@
         </transition>
         <!--Ends modal-->
 
-                <div class="tr w100p h10p-min h10p flex-row a-c-n scroll-y point poppins" :key="index" @click="setClickedIndex(school._id)">
+                <div class="tr tr-fade w100p h10p-min h10p flex-row a-c-n scroll-y point poppins" :key="index" @click="setClickedIndex(school._id)">
 
                     <span :class="{'w20p ml-p5 light': true, hide: draftClicked}">{{school._id}}</span>
                     <span :class="{'w20p ml-1 light': true, hide: draftClicked}">{{school.name}}</span>
@@ -168,24 +111,107 @@
             </template>
             </div>
 
+            <!-- draft section starts -->
             <div :class="{'flex-col w100p-max a-c-n bg-white h100p hide-overflow-y round-edge-sm allSchools': true, 'w92p': !publishedClicked, 'w5p': !draftClicked}">
+
                 <div :class="{'table-head w100p h10p flex-row a-c-n poppins border-box': true, hide: publishedClicked}" style="box-shadow: 0 12px 24px rgba(0,0,0,.05);">
-                    <span class="w20p ml-p5" style="">School ID</span>
-                    <span class="w20p ml-1" style="">Name</span>
-                    <span class="w20p ml-1" style="">Location</span>
-                    <span class="w20p ml-p5" style="">Degree Offered</span>
-                    <span class="w15p ml-p5" style="">Cost</span>
+                    <span class="w20p ml-p5" style="">{{postCount}}</span>
+                    <span class="w20p ml-2" style="">{{selectedDrafts}}</span>
+                    <span class="w15p ml-p5" style="">Location</span>
+                    <span class="w15p ml-p5" style="">Degree Offered</span>
+                    <span class="w10p ml-1" style="">Cost</span>
+                    <span class="w5p ml-p5" style=""></span>
+                    <span class=" ml-p5" style=""></span>
                 </div>
-                <div class="w100p h90p scroll-y flex-col a-c-n border-box" style="border: 1px dashed rgba(0,0,0,.3);">
-                    <div class="tr w100p h10p-min h10p flex-row a-c-n scroll-y point poppins" v-for="(school, index) in schoolData" :key="index">
-                        <span :class="{'w20p ml-p5 light': true, hide: publishedClicked}">School ID</span>
-                        <span :class="{'w20p ml-1 light': true, hide: publishedClicked}">Name</span>
-                        <span :class="{'w20p ml-p5 light': true, hide: publishedClicked}">Location</span>
-                        <span :class="{'w20p ml-1 light': true, hide: publishedClicked}">Degree Offered</span>
-                        <span :class="{'w15p ml-p5 light': true, hide: publishedClicked}">Cost</span>
+
+                <template class="w100p h90p scroll-y flex-col a-c-n border-box" style="border: 1px dashed rgba(0,0,0,.3);" v-for="(school, index) in schools.draftedSchools">
+
+        <!-- starts modal -->
+        <transition name="fade" :key="school.__v">
+        <div class="fixed school-details-modal flex-col a-c-n bg-white w50 border-box" :key="school._id" v-if="clickedDraftIndex == school._id">
+
+            <div class="w100p flex-row space-btw">
+                <span></span>
+                <span class="poppins red point" @click="clickedDraftIndex = null">Cancel</span>
+            </div>
+            <div class="flex-row w100p ">
+                <img src="@/assets/img/icons/smallschool_dribble.jpg" alt="" width="100px" height="100px">
+
+                <div class="flex-col ml-2 mt-2">
+                    <h3 class="poppins fade-7"> {{expandedDraftDetails.name}},</h3>
+                    <p class="poppins fade-4 mt-p5"> {{expandedDraftDetails.state}}, {{expandedDraftDetails.country}}.</p>
+
+                    <div class="flex-col mt-2">
+                        <div class="flex-row a-c fade-7">
+                            <h4 class="poppins">School ID:</h4>
+                            <p class="poppins ml-1 fade-7">{{expandedDraftDetails._id}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Course Offered:</h4>
+                            <p class="poppins ml-1 fade-7">{{expandedDraftDetails.courseOffered}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Degree Offered:</h4>
+                            <p class="poppins ml-1 fade-7">{{expandedDraftDetails.degreeOffered}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Total Cost:</h4>
+                            <p class="poppins ml-1 fade-7">$ {{expandedDraftDetails.schoolCost}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Application Fee:</h4>
+                            <p class="poppins ml-1 fade-7">$ {{expandedDraftDetails.applicationFee}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Status</h4>
+                            <p class="poppins ml-1 fade-7">{{expandedDraftDetails.status}}</p>
+                        </div>
+                        <div class="flex-row mt-p5 fade-7">
+                            <h4 class="poppins">Admission Score</h4>
+                            <p class="poppins ml-1 fade-7">{{expandedDraftDetails.admissionScore}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="flex-row  mt-3 w100p space-btw">
+                <div class="row arrows">
+                    <img src="@/assets/img/icons/arrow-left.svg" alt="" @click="prevClicked(index)">
+                    <img src="@/assets/img/icons/arrow-right.svg" alt="" class="ml-1" @click="nextClicked(index)">
+                </div>
+                <div class="flex-row a-c">
+                <button class="round-edge-btn btn-1 modal-act t-center poppins point ml-1">
+                    Edit details
+                </button>
+                <button class="round-edge-btn btn-2 t-center poppins  modal-act ml-1 point" @click="deletePublishedSchool">
+                    {{deleteStatus}}
+                </button>
+                </div>
+            </div>
+        </div>
+        </transition>
+        <!--Ends modal-->
+
+                    <div class="tr tr2-fade w100p h10p-min h10p flex-row a-c-n scroll-y poppins" :key="index">
+                        <span :class="{'w20p ml-p5 light': true, hide: publishedClicked}">{{school._id}}</span>
+                        <span :class="{'w20p ml-2 light': true, hide: publishedClicked}">{{school.name}}</span>
+                        <span :class="{'w15p ml-p5 light': true, hide: publishedClicked}">{{school.state}}, {{school.country}}</span>
+                        <span :class="{'w15p ml-p5 light': true, hide: publishedClicked}">{{school.degreeOffered}}</span>
+                        <span :class="{'w10p ml-1 light': true, hide: publishedClicked}">{{school.schoolCost}}</span>
+                        <span :class="{'w5p ml-p5 light': true, hide: publishedClicked}"><img src="@/assets/img/icons/eye.png" alt="" width="20px" height="20px" class="point"  @click="setDraftIndex(school._id)"></span>
+                        <span :class="{' ml-p5 light': true, hide: publishedClicked}">
+                        <label class="checkbox path point">
+                            <input type="checkbox" class="point" :value="school" v-model="selectedDrafts" :name="school">
+                            <svg viewBox="0 0 21 21">
+                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                            </svg>
+                        </label>
+                        </span>
+                    </div>
+
+                </template>
+            </div>
+
         </div>
 
     </div>
@@ -193,15 +219,20 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import axios from 'axios'
 
 export default {
   data () {
     return {
-      schoolData: [ 'hey', 'hai', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe', 'jhe' ],
       draftClicked: false,
       publishedClicked: true,
       clickedIndex: null,
-      popPublishedModal: false
+      clickedDraftIndex: null,
+      popPublishedModal: false,
+      popDraftModal: false,
+      deleteStatus: 'Delete',
+      selectedDrafts: [],
+      postCount: 0
     }
   },
   computed: {
@@ -212,12 +243,20 @@ export default {
       } else {
         return this.schools.allSchoolsData.find(v => v._id === this.clickedIndex)
       }
+    },
+    expandedDraftDetails () {
+      if (this.clickedDraftIndex === null) {
+        return {}
+      } else {
+        return this.schools.draftedSchools.find(v => v._id === this.clickedDraftIndex)
+      }
     }
   },
   methods: {
     showDraft () {
       this.draftClicked = true
       this.publishedClicked = false
+      this.clickedIndex = null
     },
     nextClicked (index) {
       let arraySize = this.schools.allSchoolsData.length
@@ -239,6 +278,7 @@ export default {
     showPublished () {
       this.draftClicked = false
       this.publishedClicked = true
+      this.clickedDraftIndex = null
     },
     donothing (e) {
       e.preventDefault()
@@ -246,8 +286,25 @@ export default {
     setClickedIndex (schoolID) {
       this.clickedIndex = null
       this.clickedIndex = schoolID
-      //   this.$forceUpdate()
       this.popPublishedModal = true
+    },
+    setDraftIndex (schoolID) {
+      this.clickedDraftIndex = null
+      this.clickedDraftIndex = schoolID
+      this.popDraftModal = true
+    },
+    async deletePublishedSchool () {
+      if (this.clickedIndex !== null) {
+        this.deleteStatus = 'Deleting'
+        let url = 'https://travooler.herokuapp.com/schools/published/' + this.clickedIndex
+        await axios.delete(url)
+        console.log('deleted')
+        this.fetchSchools()
+        this.deleteStatus = 'Delete'
+      }
+    },
+    async deleteAllSchools () {
+      await axios.delete('https://travooler.herokuapp.com/schools/published/')
     },
     expandPublishedDetails () {
       this.popPublishedModal = true
@@ -255,10 +312,46 @@ export default {
     collapsePublishedDetails () {
       this.popPublishedModal = false
     },
-    ...mapActions(['fetchSchools'])
+    async publishBatchSchools (selectedDrafts) {
+      let i = 0
+      let length = selectedDrafts.length
+      for (; i <= length; i++) {
+        let selectedSchool = selectedDrafts[i]
+
+        await axios.post('https://travooler.herokuapp.com/schools/published', {
+          name: selectedSchool.name,
+          state: selectedSchool.state,
+          score: selectedSchool.admissionScore,
+          status: selectedSchool.status,
+          degree: selectedSchool.degreeOffered,
+          appFee: selectedSchool.applicationFee,
+          country: selectedSchool.country,
+          course: selectedSchool.courseOffered,
+          cost: selectedSchool.schoolCost
+        })
+        axios.delete('https://travooler.herokuapp.com/schools/drafts/' + selectedSchool._id)
+        let index = this.schools.draftedSchools.indexOf(selectedDrafts[i])
+        if (index !== -1) this.schools.draftedSchools.splice(index, 1)
+      }
+    },
+    deleteBatch () {
+      let i = 0
+      let selectedDrafts = this.selectedDrafts
+      let length = selectedDrafts.length
+      for (; i <= length; i++) {
+        let selectedSchoolId = selectedDrafts[i]._id
+
+        axios.delete('https://travooler.herokuapp.com/schools/drafts/' + selectedSchoolId)
+
+        let index = this.schools.draftedSchools.indexOf(selectedDrafts[i])
+        if (index !== -1) this.schools.draftedSchools.splice(index, 1)
+      }
+    },
+    ...mapActions(['fetchSchools', 'fetchDraftedSchools', 'addSchool'])
   },
   created () {
     this.fetchSchools()
+    this.fetchDraftedSchools()
   }
 }
 </script>
@@ -290,9 +383,6 @@ export default {
         -moz-outline-style: none;
         outline:none;
         outline: 0;
-    }
-    .scale-on-hover:hover{
-        transform: scale(1.1);
     }
     .btn-1{
         background: rgba(20, 196, 93, .4)
@@ -333,8 +423,11 @@ export default {
     .tr:nth-child(odd) {
         background: rgba(20, 196, 93, .1);
     }
-    .tr:hover{
+    .tr-fade:hover{
         opacity: .4;
+    }
+    .tr2-fade:hover{
+        opacity: .85;
     }
     .tr>span, .table-head {
         transition: opacity .5s ease-in;
@@ -349,6 +442,12 @@ export default {
         border-radius: 50px;
         width: 2rem;
         height: 2rem;
+    }
+    .delete{
+        border-radius: 50px;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: white;
     }
     .pub-btn{
         border: 1px dashed rgba(20, 196, 93);
@@ -368,4 +467,36 @@ export default {
         border-radius: 25px;
         padding: .5rem 1rem;
     }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip2 .tooltiptext2 {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(61, 199, 141);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip2:hover .tooltiptext2 {
+  visibility: visible;
+}
+
+.tooltip-top2 .tooltiptext2 {
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
 </style>

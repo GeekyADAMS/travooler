@@ -22,7 +22,7 @@
     <rect x="204.5" y="551.27" rx="0" ry="0" width="182.016" height="77" />
     <rect x="7" y="641" rx="3" ry="3" width="380" height="6.4" />
     </content-loader>
-    <main  v-else>
+    <main  v-if="myData">
       <router-view></router-view>
     </main>
   </div>
@@ -41,22 +41,19 @@ export default {
   },
   data () {
     return {
-      myData: null
+      myData: false
     }
+  },
+  created () {
+    setTimeout(() => {
+      this.myData = true
+    }, 5000)
   },
   computed: {
     navBar () {
       return this.$store.getters.navbarState
     }
-  },
-  mounted () {
-    // Just pretend this is an AJAX call. Use your imagination.
-    setTimeout(() => {
-      this.myData = 'Example Data'
-    }, 2000)
   }
-  // created () {
-  // }
 }
 </script>
 

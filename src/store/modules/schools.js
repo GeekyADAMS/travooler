@@ -21,7 +21,8 @@ const state = {
     sendState: 'Submit',
     count: 0
   },
-  schools: []
+  schools: [],
+  draftedSchools: []
 }
 
 const getters = {
@@ -68,12 +69,15 @@ const mutations = {
   },
   fetch: (state, schools) => {
     state.allSchoolsData = schools
+  },
+  fetchDrafts: (state, drafts) => {
+    state.draftedSchools = drafts
   }
 }
 
 const actions = {
   async addSchool ({ commit }, schoolData) {
-    const response = await axios.post('https://travooler.herokuapp.com/schools/published', {
+    const response = await axios.post('https://travooler.herokuapp.com/schools/drafts', {
       name: schoolData.name,
       state: schoolData.state,
       score: schoolData.score,
@@ -85,7 +89,7 @@ const actions = {
       cost: schoolData.cost
     })
       .then((response) => {
-        if (response.status === 200 || response.status === 201) {
+        if ([200, 201].includes(response.status)) {
           commit('done')
         }
         console.log(response.status)
@@ -99,13 +103,18 @@ const actions = {
     context.commit('processing')
   },
   done: context => {
+    console.log('fetching...')
     context.commit('done')
   },
   async fetchSchools ({ commit }) {
-    console.log('fetching....')
     const response = await axios.get('https://travooler.herokuapp.com/schools/published')
 
     commit('fetch', response.data)
+  },
+  async fetchDraftedSchools ({ commit }) {
+    const response = await axios.get('https://travooler.herokuapp.com/schools/drafts')
+    console.log('fetched drafts')
+    commit('fetchDrafts', response.data)
   }
 }
 

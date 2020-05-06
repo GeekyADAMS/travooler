@@ -5,6 +5,7 @@
                 <img src="@/assets/logo-black.jpg" class="logo" alt="">
                 <h3 class="admin Poppins ml-1 bit-fade mt-p3"> Admin</h3>
             </div>
+            <portal-target name="navbar-status" class="mr-8"></portal-target>
         </section>
 
         <section class="flex-row w100 a-c h100 body-container">
@@ -17,33 +18,35 @@
               </div>
             </div>
             <div class="main-body h100 w80 flex-col a-c">
-              <schoolsPart v-if="navOptions[1].checked"/>
-              <div class="flex-col a-c bg-white mt-n5 round-15" style="padding: 4rem; border: 1px dashed rgba(0,0,0,.4);" v-if="nothingFound">
+              <router-view></router-view>
+              <!--<schoolsPart v-if="navOptions[1].checked"/>-->
+              <!--<div class="flex-col a-c bg-white mt-n5 round-15" style="padding: 4rem; border: 1px dashed rgba(0,0,0,.4);" v-if="nothingFound">
                 <img src="@/assets/img/icons/nothing.png" alt="" class="" width="450px" height="400px">
                 <p class="Poppins fade-5" style="font-size: 1.5rem;">Nothing found here..</p>
-              </div>
+              </div>-->
             </div>
         </section>
+
     </div>
 </template>
 
 <script>
-import schoolsPart from '@/components/admin-schools-section'
+// import schoolsPart from '@/components/admin-schools-section'
 
 export default {
   data () {
     return {
       navOptions: [
-        { name: 'Dashboard', icon: 'dashboard.png', checked: true },
-        { name: 'Schools', icon: 'academic.png', checked: false },
-        { name: 'Travels', icon: 'plane.png', checked: false },
-        { name: 'Settings', icon: 'settings.png', checked: false }
+        { name: 'Dashboard', icon: 'dashboard.png', checked: true, route: '/admin/dashboard/' },
+        { name: 'Schools', icon: 'academic.png', checked: false, route: '/admin/dashboard/schools' },
+        { name: 'Travels', icon: 'plane.png', checked: false, route: '/admin/dashboard/' },
+        { name: 'Settings', icon: 'settings.png', checked: false, route: '/admin/dashboard/' }
       ],
       nothingFound: true
     }
   },
   components: {
-    schoolsPart
+    // schoolsPart
   },
   created () {
     this.$store.dispatch('disableNavbarState')
@@ -54,6 +57,7 @@ export default {
         option.checked = false
       })
       this.navOptions[index].checked = true
+      this.$router.push(this.navOptions[index].route)
       if (index === 0 || index === 2 || index === 3) {
         this.nothingFound = true
       } else {

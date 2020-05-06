@@ -131,8 +131,8 @@
 
                   <div
                     class="each-result-card flex-col a-c wrap list-complete-item"
-                    v-for="(sectionCards, index) in filteredSearch.slice(0, this.noOfDisplayedResult)"
-                    :key="index"
+                    v-for="(sectionCards) in filteredSearch.slice(0, this.noOfDisplayedResult)"
+                    :key="sectionCards.name"
                   >
                     <div class="top-sect-options flex-row a-c-n space-btw w100p">
                       <img
@@ -246,7 +246,7 @@ export default {
     },
     filteredSearch () {
       let results = []
-      if (this.filterStatus === true || this.searchBoxFocus === true) {
+      if (this.filterStatus || this.searchBoxFocus) {
         results = this.eachCardDetails.filter(sectionCards => {
           let schoolname = sectionCards.name.toLowerCase()
           return schoolname.match(this.searchTerm.toLowerCase())

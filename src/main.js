@@ -9,10 +9,14 @@ import Footer from './components/footer'
 import prefooter from './components/prefooter'
 import ExtNav from './components/navbarExT'
 import TravNav from './components/navbar-travooler'
+import PortalVue from 'portal-vue'
 
 // import chillax from './plugins/chillax'
 
 // Vue.use(chillax)
+
+Vue.use(PortalVue)
+
 Vue.use(VueScrollReveal, {
   class: 'v-scroll-reveal',
   duration: 2000,

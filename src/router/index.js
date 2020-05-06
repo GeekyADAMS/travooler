@@ -11,7 +11,12 @@ import setPassword from '@/views/set-password'
 import payment from '@/views/payment'
 import postSchools from '@/views/post-schools'
 import admin from '@/views/admin'
-import superAdmin from '@/views/super-admin.vue'
+import superAdmin from '@/views/super-admin'
+import adminSchools from '@/components/admin-schools-section'
+import findProgram from '@/views/find-programs'
+import findSchoolProgram from '@/components/find-schools'
+import findTravelProgram from '@/components/find-travels'
+import chatOnboarding from '@/views/chat-form'
 
 Vue.use(VueRouter)
 
@@ -78,7 +83,24 @@ const routes = [
   {
     path: '/admin/dashboard',
     name: 'superAdmin',
-    component: superAdmin
+    component: superAdmin,
+    children: [
+      { path: '/admin/dashboard/schools', name: 'schools', component: adminSchools }
+    ]
+  },
+  {
+    path: '/find-programs',
+    name: 'findProgram',
+    component: findProgram,
+    children: [
+      { path: '/find-programs/schools', name: 'findschools', component: findSchoolProgram },
+      { path: '/find-programs/travels', name: 'findtravels', component: findTravelProgram }
+    ]
+  },
+  {
+    path: '/Chat',
+    name: 'chatForm',
+    component: chatOnboarding
   }
 ]
 
