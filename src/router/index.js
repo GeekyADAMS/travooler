@@ -14,9 +14,11 @@ import admin from '@/views/admin'
 import superAdmin from '@/views/super-admin'
 import adminSchools from '@/components/admin-schools-section'
 import findProgram from '@/views/find-programs'
-import findSchoolProgram from '@/components/find-schools'
+import findMorePrograms from '@/components/more-schools'
 import findTravelProgram from '@/components/find-travels'
 import chatOnboarding from '@/views/chat-form'
+import schoolHome from '@/views/new-school-home'
+import findSchoolsProgram from '@/components/find-schools'
 
 Vue.use(VueRouter)
 
@@ -26,7 +28,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/about',
     name: 'homepage',
     component: homepage
   },
@@ -93,14 +95,21 @@ const routes = [
     name: 'findProgram',
     component: findProgram,
     children: [
-      { path: '/find-programs/schools', name: 'findschools', component: findSchoolProgram },
-      { path: '/find-programs/travels', name: 'findtravels', component: findTravelProgram }
+      { path: '/find-programs/more', name: 'more-schools', component: findMorePrograms },
+      { path: '/find-programs/travels', name: 'findtravels', component: findTravelProgram },
+      { path: '/find-programs/schools', name: 'findschools', component: findSchoolsProgram }
+      
     ]
   },
   {
     path: '/Chat',
     name: 'chatForm',
     component: chatOnboarding
+  },
+  {
+    path: '/',
+    name: 'admissionHome',
+    component: schoolHome
   }
 ]
 

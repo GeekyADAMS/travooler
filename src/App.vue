@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-    <navTrav style="color: white; background: white;" v-if="navBar"/>
     <content-loader v-if="!myData" :height="1000" :width="400" :speed="1.5" primaryColor="#f7f7f7" secondaryColor="#e9e9e9">
     <rect x="10" y="99" rx="3" ry="3" width="380" height="6.4" />
     <rect x="11" y="117.22" rx="3" ry="3" width="249.24" height="7.94" />
@@ -47,7 +46,7 @@ export default {
   created () {
     setTimeout(() => {
       this.myData = true
-    }, 5000)
+    }, 3000)
   },
   computed: {
     navBar () {

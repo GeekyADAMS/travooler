@@ -27,8 +27,8 @@
                 <div class="burger-menu point flex-col a-c-n"  @click="burgerClick = !burgerClick">
                 <div :class="{menu: true, 'turn-down': !burgerClick, slowDown: true}" id="bar-1"></div>
                 <transition name="custom-classes-transition"
-    enter-active-class="animated slideInRight"
-    leave-active-class="animated slideOutRight">
+                            enter-active-class="animated slideInRight"
+                            leave-active-class="animated slideOutRight">
                     <div class="menu" id="bar-2" v-if="burgerClick"></div>
                 </transition>
                 <div :class="{menu: true, 'turn-up': !burgerClick, slowDown: true}" id="bar-3"></div>

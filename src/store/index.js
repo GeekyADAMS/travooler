@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import schools from './modules/schools'
 import admin from './modules/admin'
+import onboard from './modules/onboard'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     schools,
-    admin
+    admin,
+    onboard
   },
   state: {
     mobile: false,

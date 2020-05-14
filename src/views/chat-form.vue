@@ -14,74 +14,29 @@
             <span class="poppins darkTxt" style="font-size: .8rem;">{{time}}</span></div>
         </section>
 
-        <section class="flex-col h100p w75p scroll-y chat-screen-container" ref="chatBox">
-            <div class="chat-screen mt-auto w90p border-box flex-col">
+        <section class="flex-col h100p w75p s-w100 scroll-y chat-screen-container" ref="chatBox">
+            <div class="chat-screen mt-auto w90p s-w100p border-box flex-col" ref="chatScreen">
                 <div class="flex-row sys-response mb-1 quest-1 animated fadeIn">
                     <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5"> Hi Student! Welcome to Search, by Travooler. </p>
+                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5"> Hi Student! <br>Welcome to Search, by Travooler. </p>
                 </div>
                 <div class="flex-row sys-response mb-1 quest-2 animated fadeIn">
                     <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8"> Search shows you the best schools, <wbr> lets you apply to one or more programs at once, <wbr>and helps you obtain admissions, faster. </p>
+                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5"> Search shows you the best schools, <wbr> lets you apply to one or more programs at once, <wbr>and helps you obtain admissions, faster. </p>
                 </div>
                 <div class="flex-row sys-response mb-1 quest-3 animated fadeIn">
                     <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8"> Let's get started.<br>
+                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5"> Let's get started.<br>
                     What is your first name?</p>
                 </div>
 
-                <div class="flex-row user-response mb-2 mt-2 ml-auto mr-2" v-if="renderMetrics[0]">
-                    <p class="message-box box-2 poppins green_bg round-edge-btn mr-p5 white"> Adams Abdulhakeem</p>
-                    <img src="@/assets/img/icons/chat-avatar.png" alt="" class="mt-auto chat-thumbnail">
-                </div>
-
-                <div class="flex-row sys-response mb-1" v-if="renderMetrics[1]">
-                    <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8">Nice to meet you, Adams!<br>
-                    What's your email address?</p>
-                </div>
-
-                <div class="flex-row user-response mb-2 mt-2 ml-auto mr-2" v-if="renderMetrics[2]">
-                    <p class="message-box box-2 poppins green_bg round-edge-btn mr-p5 white">drkeeminc@gmail.com</p>
-                    <img src="@/assets/img/icons/chat-avatar.png" alt="" class="mt-auto chat-thumbnail">
-                </div>
-
-                <div class="flex-row sys-response mb-1" v-if="renderMetrics[3]">
-                    <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8">In which country would you like to study?</p>
-                </div>
-
-                <div class="flex-row user-response mb-2 mt-2 ml-auto mr-2" v-if="renderMetrics[4]">
-                    <p class="message-box box-2 poppins green_bg round-edge-btn mr-p5 white">Canada</p>
-                    <img src="@/assets/img/icons/chat-avatar.png" alt="" class="mt-auto chat-thumbnail">
-                </div>
-
-                <div class="flex-row sys-response mb-1" v-if="renderMetrics[5]">
-                    <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8">Great! <br>Next, what qualification do you want to obtain? </p>
-                </div>
-
-                <div class="flex-row user-response mb-2 mt-2 ml-auto mr-2" v-if="renderMetrics[6]">
-                    <p class="message-box box-2 poppins green_bg round-edge-btn mr-p5 white">Masters Degree</p>
-                    <img src="@/assets/img/icons/chat-avatar.png" alt="" class="mt-auto chat-thumbnail">
-                </div>
-
-                <div class="flex-row sys-response mb-1" v-if="renderMetrics[7]">
-                    <img src="@/assets/logo.png" alt="" class="mt-auto chat-thumbnail">
-                    <p class="message-box box-1 poppins_light white_bg round-edge-btn ml-p5 text-p8">Now, please enter a program of interest to continue. </p>
-                </div>
-
-                <div class="flex-row user-response mb-2 mt-2 ml-auto mr-2" v-if="renderMetrics[8]">
-                    <p class="message-box box-2 poppins green_bg round-edge-btn mr-p5 white">Telecommunication Science</p>
-                    <img src="@/assets/img/icons/chat-avatar.png" alt="" class="mt-auto chat-thumbnail">
-                </div>
             </div>
         </section>
 
         <section class="bottom-panel fixed w100 flex-row a-c space-btw">
             <div class="w20"></div>
             <div class="flex-row w70 h100p a-c space-btw">
-                <input type="text" class="border-box poppins round-edge-btn no-border" id="response-box" placeholder="Type your responses and press Enter button to send">
+                <input type="text" class="border-box poppins round-edge-btn no-border" id="response-box" placeholder="Type your responses and press Enter button to send" v-model="currentReply" @keyup.enter="validateAndRender()" ref="replyBox">
                 <!--<img src="@/assets/img/icons/send.png" class="send point" alt="">-->
             </div>
             <div class="flex-col pad-all-p8 text-p7 brand w20">
@@ -90,7 +45,7 @@
                 <p class="poppins_light"><b>N</b> ational</p>
                 <p class="poppins_light"><b>C</b> ollege</p>
                 <p class="poppins_light"><b>E</b> Enrollment</p>
-                <p class="poppins mt-p5">&copy; {{new Date().getFullYear()}}</p>
+                <p class="poppins mt-p5 point">&copy; {{new Date().getFullYear()}}</p>
             </div>
             </div>
         </section>
@@ -98,10 +53,15 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import response from '@/components/user-reply'
+import question from '@/components/question'
+
 export default {
   data () {
     return {
       time: null,
+      replyList: [],
       replies: {
         name: null,
         email: null,
@@ -110,13 +70,19 @@ export default {
         program: null
       },
       renderMetrics: [false, false, false, false, false, false, false, false, false],
-      count: 0
+      count: 0,
+      questions: ['Nice to meet you '+ this.test +'. \nWhat\'s your email address?',
+      'In which country would you like to study?',
+      'Great! <br>Next, what qualification do you want to obtain?',
+      'Now, please enter a program of interest to continue.'],
+      currentReply: '',
+      questionCount: 0,
+      test: 'lalalalala'
     }
   },
   computed: {
   },
-  components: {
-  },
+  components: { response, question },
   created () {
     this.$store.dispatch('disableNavbarState')
     this.setTime()
@@ -129,13 +95,108 @@ export default {
         let date = `${fullDate.getDate()}/${fullDate.getMonth()}/${fullDate.getFullYear()} \xa0\xa0 ${fullDate.getHours()}:${fullDate.getMinutes()} ${hour}`
         this.time = date
       }, 1000)
+    },
+    validateAndRender () {
+      if ((this.currentReply !== '') && this.questionCount == 0) {
+        if (this.currentReply.match(/^[A-Za-z\s]+$/)) {
+          this.replies.name = this.currentReply
+          this.renderReply()
+          setTimeout(() => {
+            this.renderQuestion('Nice to meet you '+ this.replies.name)
+          }, 1000)
+          setTimeout(() => {
+            this.renderQuestion('What\'s your email address?')
+          }, 1500)
+        } else {
+          this.renderReply()
+          this.questionCount--
+          setTimeout(() => {
+            this.renderQuestion('Name contains invalid characters. Please resend name.')
+          }, 1000)
+        }
+
+      }
+      if ((this.currentReply !== '') && this.questionCount == 1) {
+        if (this.currentReply.match(/\S+@\S+\.\S+/)) {
+          this.replies.email = this.currentReply
+          this.renderReply()
+          setTimeout(() => {
+            this.renderQuestion('In which country would you like to study?')
+          }, 1000)
+        } else {
+          this.renderReply()
+          this.questionCount--
+          setTimeout(() => {
+            this.renderQuestion('Enter a valid mail')
+          }, 1000)
+        }
+      }
+      if ((this.currentReply !== '') && this.questionCount == 2) {
+        this.replies.country = this.currentReply
+        this.renderReply()
+        setTimeout(() => {
+          this.renderQuestion('Great!')
+        }, 1000)
+        setTimeout(() => {
+          this.renderQuestion('Next, what qualification do you want to obtain?')
+        }, 1500)
+        setTimeout(() => {
+          this.renderQuestion('e.g. Masters, Bachelors, PhD, Diploma e.t.c')
+        }, 2000)
+      }
+      if ((this.currentReply !== '') && this.questionCount == 3) {
+        this.replies.qualification = this.currentReply
+        this.renderReply()
+        setTimeout(() => {
+          this.renderQuestion('Now, please enter a program of interest to continue.')
+        }, 1000)
+        setTimeout(() => {
+          this.renderQuestion('E.g Medicine, Engineering, e.t.c')
+        }, 1500)
+      }
+      if ((this.currentReply !== '') && this.questionCount == 4) {
+        this.replies.program = this.currentReply
+        this.renderReply()
+        this.$store.dispatch('updateUserDetails', this.replies)
+        setTimeout(() => {
+          this.$router.push({path: '/find-programs/schools'})
+        }, 1000)
+      }
+    },
+    renderReply () {
+      var ComponentClass = Vue.extend(response)
+      var instance = new ComponentClass({
+        propsData: { type: 'primary' }
+      })
+      instance.$slots.default = [this.currentReply]
+      instance.$mount()
+      // console.log(this.$refs)
+      this.$refs.chatScreen.insertAdjacentElement('beforeend', instance.$el)
+      this.scrollTop()
+      this.currentReply = ''
+  
+      this.questionCount++
+    },
+    renderQuestion (quest) {
+      var ComponentClass = Vue.extend(question)
+      var instance = new ComponentClass({
+        propsData: { type: 'primary' }
+      })
+      instance.$slots.default = [quest]
+      instance.$mount() // pass nothing
+      // console.log(this.$refs)
+      this.$refs.chatScreen.insertAdjacentElement('beforeend', instance.$el)
+      this.scrollTop()
+    },
+    scrollTop () {
+      this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
     }
   },
   mounted () {
-    this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
+    this.scrollTop()
   },
   updated () {
-    this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
+    this.scrollTop()
   }
 }
 </script>
@@ -248,5 +309,13 @@ select{
 .logo{
     width: 7.5rem;
     height: 3rem;
+}
+@media screen and (max-width: 570px) {
+  .chat-screen{
+      padding: 2rem 0 2rem .5rem;
+  }
+  .message-box{
+    max-width: 15rem;
+  }
 }
 </style>

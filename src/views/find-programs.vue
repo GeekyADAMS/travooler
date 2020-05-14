@@ -5,13 +5,23 @@
                 <img src="@/assets/logo-black.jpg" class="logo" alt="">
             </div>
 
-            <portal-target name="navbar-search" class="h60p w40p"></portal-target>
+            <portal-target name="navbar-search" class="h60p w40p"  v-if="!mobile"></portal-target>
 
-            <div class="flex-row a-c point"><img src="@/assets/STASHIP-UNIVERS-IMG/chat.png" alt="" class="identicon" style="margin-right: .25rem;">
+            <div class="flex-row a-c point" ref="navChat" v-if="!mobile"><img src="@/assets/STASHIP-UNIVERS-IMG/chat.png" alt="" class="identicon" style="margin-right: .25rem;">
             <span class="poppins darkTxt" style="font-size: .8rem;">Chat with an advisor</span></div>
+
+            <div class="burger-menu point flex-col a-c-n"  @click="burgerClick = !burgerClick">
+              <div :class="{menu: true, 'turn-down': !burgerClick, slowDown: true}" id="bar-1"></div>
+              <transition name="custom-classes-transition"
+                          enter-active-class="animated slideInRight"
+                          leave-active-class="animated slideOutRight">
+                  <div class="menu" id="bar-2" v-if="burgerClick"></div>
+              </transition>
+              <div :class="{menu: true, 'turn-up': !burgerClick, slowDown: true}" id="bar-3"></div>
+            </div>
         </section>
 
-        <router-view></router-view>
+        <router-view :burgerClick="burgerClick"></router-view>
 
     </div>
 </template>
@@ -22,13 +32,23 @@
 export default {
   data () {
     return {
+      navItemDisplay: true,
+      burgerClick: true
+    }
+  },
+  computed: {
+    mobile () {
+      return this.$store.state.mobile
     }
   },
   components: {
     // schoolsPart
   },
   created () {
-    this.$store.dispatch('disableNavbarState')
+    this.$store.dispatch('checkMobileState')
+    if (!this.mobile) {
+      this.burgerClick = false
+    }
   },
   methods: {
   }
@@ -37,11 +57,8 @@ export default {
 
 <style scoped>
 @import url('~@/assets/styles/admin-dashboard.css');
-
-.top_nav{
-    box-shadow: 0 2px 2px rgba(0,0,0,.09);
-    padding: 0 2rem 0 2rem;
-    background: white;
+.top_nav {
+  z-index: 3000;
 }
 .off-white-2{
     background: rgb(241, 241, 241);
@@ -62,5 +79,11 @@ export default {
    -moz-outline-style: none;
     outline:none;
     outline: 0;
+}
+
+@media screen and (max-width: 570px) {
+  .logo{
+    margin-left: -1.5rem;
+  }
 }
 </style>
