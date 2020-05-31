@@ -1,4 +1,5 @@
 import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 
 const state = {
   chosenFilterOptions: {
@@ -8,22 +9,16 @@ const state = {
   availableDegrees: [ { tag: 'Ordinary Diploma', selected: false }, { tag: 'Bachelor\'s', selected: false }, { tag: 'Post-bac Diploma', selected: false }, { tag: 'Graduate Diploma', selected: false }, { tag: 'Master\'s Degree', selected: false }, { tag: 'Doctorate Degree', selected: false } ],
   availableCourses: [ { tag: 'Arts', selected: false }, { tag: 'Physical Sciences', selected: false }, { tag: 'Engineering', selected: false }, { tag: 'Business', selected: false }, { tag: 'Health Sciences', selected: false }, { tag: 'Social Sciences', selected: false }, { tag: 'Law', selected: false }, { tag: 'Medical Sciences', selected: false }, { tag: 'Agriculture', selected: false }, { tag: 'Finance', selected: false } ],
   allSchoolsData: [],
-  schoolDetails: {
-    name: '',
-    state: '',
-    score: '',
-    status: '',
-    degree: '',
-    appFee: '',
-    country: '',
-    course: '',
-    cost: '',
-    sendState: 'Submit',
+  schoolDetails: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+  processState: {
+    sendState: "Submit",
     count: 0
   },
   schools: [],
   draftedSchools: []
 }
+
+const plugins = [createPersistedState()]
 
 const getters = {
   availableCountries: state => {
@@ -40,6 +35,12 @@ const getters = {
   },
   schoolDetails: state => {
     return state.schoolDetails
+  },
+  processState: state => {
+    return state.processState
+  },
+  allSchools: state => {
+    return state.allSchoolsData
   }
 }
 
@@ -48,24 +49,27 @@ const mutations = {
     state.schools.unshift(school)
   },
   processing: state => {
-    state.schoolDetails.sendState = 'Sending...'
+    state.processState.sendState = 'Sending...'
   },
   done: state => {
     let details = state.schoolDetails
+    let processState = state.processState
 
-    details.sendState = 'Done'
-    details.sendState = 'Submit'
+    processState.sendState = 'Done'
+    processState.sendState = 'Submit'
 
-    details.name = ''
-    details.state = ''
-    details.score = ''
-    details.status = ''
-    details.degree = ''
-    details.appFee = ''
-    details.country = ''
-    details.course = ''
-    details.cost = ''
-    details.count += 1
+    details.length = 0
+    processState.count += 1
+  },
+  postFailed: state => {
+    let processState = state.processState
+
+    processState.sendState = 'Failed.. (Retry)'
+  },
+  resetPostBtn: state => {
+    let processState = state.processState
+
+    processState.sendState = 'Submit'
   },
   fetch: (state, schools) => {
     state.allSchoolsData = schools
@@ -77,27 +81,38 @@ const mutations = {
 
 const actions = {
   async addSchool ({ commit }, schoolData) {
-    const response = await axios.post('https://travooler.herokuapp.com/schools/drafts', {
-      name: schoolData.name,
-      state: schoolData.state,
-      score: schoolData.score,
-      status: schoolData.status,
-      degree: schoolData.degree,
-      appFee: schoolData.appFee,
-      country: schoolData.country,
-      course: schoolData.course,
-      cost: schoolData.cost
+    const response = await axios.post('https://travooler-api.herokuapp.com/schools/drafts', {
+      name: schoolData[0],
+      city: schoolData[1],
+      score: schoolData[2],
+      status: schoolData[3],
+      degree: schoolData[4],
+      appFee: schoolData[5],
+      country: schoolData[6],
+      course: schoolData[7],
+      cost: schoolData[8],
+      url: schoolData[9],
+      prevlink: schoolData[10],
+      sessMonth: schoolData[11],
+      sessYear: schoolData[12],
+      schoolID: schoolData[13],
+      invoiceFee: schoolData[14]
     })
       .then((response) => {
         if ([200, 201].includes(response.status)) {
           commit('done')
         }
+        if ([500].includes(response.status)) {
+          commit('postFailed')
+          console.log(response.status)
+        }
         console.log(response.status)
       }, (error) => {
         console.log(error)
+        commit('postFailed')
       })
 
-    commit('newSchool', response.data)
+    commit('newSchool', 'trash')
   },
   processing: context => {
     context.commit('processing')
@@ -106,13 +121,16 @@ const actions = {
     console.log('fetching...')
     context.commit('done')
   },
+  resetPostBtn: context => {
+    context.commit('resetPostBtn')
+  },
   async fetchSchools ({ commit }) {
-    const response = await axios.get('https://travooler.herokuapp.com/schools/published')
+    const response = await axios.get('https://travooler-api.herokuapp.com/schools/published')
 
     commit('fetch', response.data)
   },
   async fetchDraftedSchools ({ commit }) {
-    const response = await axios.get('https://travooler.herokuapp.com/schools/drafts')
+    const response = await axios.get('https://travooler-api.herokuapp.com/schools/drafts')
     console.log('fetched drafts')
     commit('fetchDrafts', response.data)
   }
@@ -120,6 +138,7 @@ const actions = {
 
 export default {
   state,
+  plugins,
   getters,
   mutations,
   actions

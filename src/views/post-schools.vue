@@ -16,55 +16,16 @@
         <h3 class="poppins mt-2 ml-2 h3">Post Schools</h3>
         <div class="mt-2 m-auto w80p form-field flex-col a-c">
             <form class="form form-2 w90p flex-row a-c space-btw wrap">
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="schooName">School Name</label><br>
-                    <input type="user" name="schoolName" class="input username" placeholder="Enter school name" autocomplete="true" v-model="schoolDetails.name" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="state">State</label><br>
-                    <input type="user" name="state" class="input username" placeholder="Enter school state" autocomplete="true" v-model="schoolDetails.state" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="admissionScore">Admission Score</label><br>
-                    <input type="user" name="admissionScore" class="input username" placeholder="Enter admission score" autocomplete="true" v-model="schoolDetails.score" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="status">Status</label><br>
-                    <input type="user" name="status" class="input username" placeholder="Enter status" autocomplete="true" v-model="schoolDetails.status" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="degree">Degree</label><br>
-                    <input type="user" name="degree" class="input username" placeholder="Enter degree offered" autocomplete="true" v-model="schoolDetails.degree" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="appFee">Application Fee</label><br>
-                    <input type="user" name="appFee" class="input username" placeholder="Enter application fee" autocomplete="true" v-model="schoolDetails.appFee" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="country">Country</label><br>
-                    <input type="user" name="country" class="input username" placeholder="Enter country" autocomplete="true" v-model="schoolDetails.country" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="course">Course</label><br>
-                    <input type="user" name="course" class="input username" placeholder="Enter course offered" autocomplete="true" v-model="schoolDetails.course" required>
-                </div>
-
-                <div class="input-full poppins flex-col a-n-c mt-2">
-                    <label for="cost">Cost</label><br>
-                    <input type="user" name="cost" class="input username" placeholder="Enter total cost" autocomplete="true" v-model="schoolDetails.cost" required  ref="form">
+                <div class="input-full poppins flex-col a-n-c mt-2" v-for="(field, index) in InputFields" :key="index">
+                    <label :for="field.label">{{field.labelText}}</label><br>
+                    <input :type="field.type" :name="field.label" class="input" :placeholder="field.placeholder" @focus="resetPostBtn(), displayWarning(index)" @blur="hideWarning(index)" autocomplete="true" v-model="schoolDetails[index]" required>
+                    <p class="poppins_light text-p8" style="color: orange; margin-top: .5rem;" v-show="warn[index] == 1">{{field.warning}}</p>
                 </div>
 
                 <button type="submit" class="t-center poppins white mt-2 point" @click="submitSchool($event)">
-                    {{schoolDetails.sendState}}
+                    {{processState.sendState}}
                 </button>
-                <p class="poppins mt-2 t-center w100p" style="color: rgb(25, 202, 158);">({{this.schoolDetails.count}}) Done</p>
+                <p class="poppins mt-2 t-center w100p" style="color: rgb(25, 202, 158);">({{processState.count}}) Done</p>
             </form>
         </div>
         </div>
@@ -74,10 +35,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+const fields = require('../../public/schoolInputfields.json')
 
 export default {
   data () {
     return {
+      InputFields: fields,
+      warn: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     }
   },
   computed: {
@@ -86,14 +50,23 @@ export default {
     },
     userDetails () {
       return this.$store.getters.user
+    },
+    processState () {
+      return this.$store.getters.processState
     }
   },
   methods: {
-    ...mapActions(['addSchool', 'processing']),
+    ...mapActions(['addSchool', 'processing', 'resetPostBtn']),
     submitSchool (e) {
       e.preventDefault()
       this.processing()
       this.addSchool(this.schoolDetails)
+    },
+    displayWarning (index) {
+      this.warn[index] = 1
+    },
+    hideWarning (index) {
+      this.warn[index] = 0
     }
   },
   created () {

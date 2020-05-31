@@ -56,6 +56,7 @@
 import Vue from 'vue'
 import response from '@/components/user-reply'
 import question from '@/components/question'
+import axios from 'axios'
 
 export default {
   data () {
@@ -67,7 +68,8 @@ export default {
         email: null,
         country: null,
         qualification: null,
-        program: null
+        program: null,
+        searchID: null
       },
       renderMetrics: [false, false, false, false, false, false, false, false, false],
       count: 0,
@@ -96,7 +98,7 @@ export default {
         this.time = date
       }, 1000)
     },
-    validateAndRender () {
+    async validateAndRender () {
       if ((this.currentReply !== '') && this.questionCount == 0) {
         if (this.currentReply.match(/^[A-Za-z\s]+$/)) {
           this.replies.name = this.currentReply
@@ -121,8 +123,20 @@ export default {
           this.replies.email = this.currentReply
           this.renderReply()
           setTimeout(() => {
-            this.renderQuestion('In which country would you like to study?')
+            this.renderQuestion('processing...')
           }, 1000)
+          await axios.post('https://travooler-api.herokuapp.com/mail/api/welcome?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, {name: this.replies.name, mail: this.replies.email}).then((response) => {
+              if ([200, 201].includes(response.status)) {
+                this.renderQuestion('In which country would you like to study?')
+              }
+              console.log(response.status)
+            }, (error) => {
+              console.log(error)
+              this.questionCount--
+              this.renderQuestion('Connection error..')
+              this.renderQuestion('Check your connection and try again')
+              this.renderQuestion('Re-enter mail')
+            })
         } else {
           this.renderReply()
           this.questionCount--
@@ -151,11 +165,12 @@ export default {
           this.renderQuestion('Now, please enter a program of interest to continue.')
         }, 1000)
         setTimeout(() => {
-          this.renderQuestion('E.g Medicine, Engineering, e.t.c')
+          this.renderQuestion('E.g Medicine, Engineering, Law e.t.c')
         }, 1500)
       }
       if ((this.currentReply !== '') && this.questionCount == 4) {
         this.replies.program = this.currentReply
+        this.replies.searchID = this.generateSearchID()
         this.renderReply()
         this.$store.dispatch('updateUserDetails', this.replies)
         setTimeout(() => {
@@ -187,6 +202,12 @@ export default {
       // console.log(this.$refs)
       this.$refs.chatScreen.insertAdjacentElement('beforeend', instance.$el)
       this.scrollTop()
+    },
+    generateSearchID () {
+      let k4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+      }
+      return k4()+k4()+k4()+k4()
     },
     scrollTop () {
       this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight

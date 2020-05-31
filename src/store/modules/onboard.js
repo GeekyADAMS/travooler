@@ -1,9 +1,11 @@
 // import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 
 const state = {
   userDetails: {
     name: '',
     mail: '',
+    searchID: '',
     preference: {
       country: '',
       degree: '',
@@ -11,6 +13,8 @@ const state = {
     }
   }
 }
+
+const plugins = [createPersistedState()]
   
 const getters = {
     userDetail: (state) => {
@@ -23,6 +27,7 @@ const mutations = {
     state.userDetails = {
       name: userReply.name,
       mail: userReply.email,
+      searchID: userReply.searchID,
       preference: {
         country: userReply.country,
         degree: userReply.qualification,
@@ -40,6 +45,7 @@ const actions = {
   
 export default {
     state,
+    plugins,
     getters,
     mutations,
     actions

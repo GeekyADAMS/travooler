@@ -50,9 +50,9 @@
 
         <!-- MOdal starts here -->
         <transition name="fade">
-            <div class="flex-col a-c w100p h100p modal-bg  fixed top-100" style="top: 0;" v-if="modalState">
+            <div class="flex-col a-c w100p h100p modal-bg  fixed top-100" style="top: 0;" v-if="modal.state">
                 <div class="flex-col a-c round-edge-md w70 h80 s-h85 s-w90 top-100 point white_bg mt-5 border-box modal-inner" ref="modal" @focus="popModal()" @focusout="closeModal()" @mouseenter="modalFocus = true" @mouseleave="closeModal()" tabindex="-1">
-                    <iframe src="https://cheaplii.now.sh" frameborder="1" name="school-details" scrolling="auto" class="w100p h100p round-edge-sm no-outline"></iframe>
+                    <iframe :src="modal.link" frameborder="1" name="school-details" scrolling="auto" class="w100p h100p round-edge-sm no-outline"></iframe>
                 </div>
             </div>
         </transition>
@@ -70,7 +70,7 @@
 
                         <div class="flex-col s-mt-2 s-mr-auto">
                             <p class="poppins">Not sure where to start?</p>
-                            <button class="outlined-black-btn mt-p5 poppins point"> ASK A TRAVOOLER AGENT</button>
+                            <button class="outlined-black-btn mt-p5 poppins point" @click="hey()"> ASK A TRAVOOLER AGENT</button>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
 
                     <div class="w100p flex-col mb-p5 s-pad-4">
 
-                        <div class="w100p white_bg flex-row a-c wrap space-btw long-card border-box mb-1 mat-shadow-square" v-for="(program, index) in programs" :key="index">
+                        <div class="w100p white_bg flex-row a-c wrap space-btw long-card border-box mb-1 mat-shadow-square" v-for="(program, index) in searchResults" :key="index">
                             <label class="checkbox path point">
                                 <input type="checkbox" class="point" :value="index" v-model="userChoice" :name="program">
                                 <svg viewBox="0 0 21 21">
@@ -88,26 +88,26 @@
                             </label>
 
                             <div class="flex-col">
-                                <p class="text-2p5 Poppins fade-9">BSc {{userDetails.preference.program}}</p>
-                                <p class="text-p7 poppins fade-7">University of Calgary, AB, {{userDetails.preference.country}}</p>
+                                <p class="text-2p5 Poppins fade-9">BSc {{program.courseOffered}}</p>
+                                <p class="text-p7 poppins fade-7">{{program.name}}, {{program.city}}, {{program.country}}</p>
                             </div>
 
                             <div class="y-seperator fade-2"></div>
 
                             <div class="flex-col a-c">
-                                <p class="text-2p5 Poppins fade-9">Sep 2021</p>
+                                <p class="text-2p5 Poppins fade-9">{{program.admissionMonth}} {{program.admissionYear}}</p>
                                 <p class="text-p7 poppins fade-7">Next start date</p>
                             </div>
 
                             <div class="y-seperator h100p fade-2"></div>
 
                             <div class="flex-row a-c s-mt-1">
-                                    <p><span class="text-25 Poppins fade-9">$10</span><span class="text-5 Poppins fade-9">k </span><span class="text-p7 poppins fade-8"> / SESSION</span></p>
+                                    <p><span class="text-25 Poppins fade-9">${{program.schoolCost.toString().slice(0, 2)}}</span><span class="text-5 Poppins fade-9">k </span><span class="text-p7 poppins fade-8"> / SESSION</span></p>
                             </div>
 
                             <div class="y-seperator h100p fade-2 s-mt-1"></div>
 
-                            <button class="no-border white text-p7 point red_bg pad-stretch hover-fade Poppins s-mt-1" @click="popModal">SEE PROGRAM DETAILS</button>
+                            <button class="no-border white text-p7 point red_bg pad-stretch hover-fade Poppins s-mt-1" @click="popModal(program.previewLink)" >SEE PROGRAM DETAILS</button>
 
                         </div>
                     </div>
@@ -125,37 +125,84 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import axios from 'axios'
+
 export default {
   props: ['burgerClick'],
   data () {
     return {
       programs: ['hey', 'hi', 'yo'],
       userChoice: [],
-      modalState: false,
+      modal: {
+          state: false,
+          link: ''
+      },
       previewLink: '',
       modalFocus: null
     }
   },
   computed: {
+    ...mapGetters(['allSchools']),
     mobile () {
       return this.$store.state.mobile
     },
     userDetails () {
       return this.$store.getters.userDetail
+    },
+    searchResults () {
+      let results = []
+
+      results = this.allSchools.filter(obj => {
+          return obj.country.toLowerCase() === this.userDetails.preference.country.toLowerCase() || obj.courseOffered.toLowerCase() === this.userDetails.preference.program.toLowerCase() || obj.degreeOffered.toLowerCase() === this.userDetails.preference.degree.toLowerCase()
+        })
+      
+      return results
     }
   },
   methods: {
+    hey () {
+      console.log(this.searchResults)
+    },
     showMore () {
       this.$router.push({path: '/find-programs/more'})
     },
-    popModal (index) {
-      this.modalState = true
+    popModal (link) {
+      this.modal.link = 'https://'+link
+      this.modal.state = true
     },
     closeModal (index) {
-        if (this.modalFocus = true){
-          this.modalState = false
-        }
-    }
+      if (this.modalFocus = true){
+          this.modal.state = false
+      }
+    },
+    async sendSchoolSuggestions () {
+
+        await axios.post('https://travooler-api.herokuapp.com/mail/api/suggest-schools?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userDetails.name, mail: this.userDetails.mail, filteredResult: this.searchResults.slice(0, 3), generatedURL: this.userDetails.searchID }).then(response => {
+            if ([200, 201].includes(response.status)) {
+              this.$store.dispatch('flashNotif', {
+                message: {
+                title: 'Welcome to Travooler',
+                text: 'We just sent you a mail containing carefully selected programs we think you will like.'
+                },
+                type: 'neutral'
+              })
+            }
+            if ([500].includes(response.status)) {
+              console.log(response.status)
+            }
+        }, (error) => {
+            console.log(error)
+        })
+    },
+    ...mapActions(['fetchSchools'])
+  },
+  beforeMount() {
+    this.fetchSchools()
+  },
+  mounted () {
+    console.log(this.allSchools)
+    this.sendSchoolSuggestions()
   }
 }
 </script>

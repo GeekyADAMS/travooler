@@ -45,11 +45,16 @@ export default {
       nothingFound: true
     }
   },
-  components: {
-    // schoolsPart
+  computed: {
+    userDetails () {
+      return this.$store.getters.user
+    }
   },
   created () {
     this.$store.dispatch('disableNavbarState')
+    if (this.userDetails.status === false) {
+      this.$router.push({path: '/admin'})
+    }
   },
   methods: {
     activate (index) {

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import schools from './modules/schools'
 import admin from './modules/admin'
 import onboard from './modules/onboard'
+import notification from './modules/notification'
 
 Vue.use(Vuex)
 
@@ -10,14 +11,15 @@ export default new Vuex.Store({
   modules: {
     schools,
     admin,
-    onboard
+    onboard,
+    notification
   },
   state: {
     mobile: false,
     navbarState: true,
     user: {
       username: 'admin',
-      password: 'travooler@admin',
+      password: process.env.VUE_APP_ADMIN_PASS,
       status: false
     }
   },
@@ -29,6 +31,7 @@ export default new Vuex.Store({
       return state.user
     }
   },
+  plugins: [],
   mutations: {
     checkMobileState: state => {
       if (window.innerWidth < 480) {

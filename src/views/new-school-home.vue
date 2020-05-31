@@ -8,11 +8,11 @@
         </section>
 
         <div class="flex-col w100 h90 a-c-n  pad-lr border-box s-h-fit scroll-y">
-          <h1 class="h1 poppins mt-3 t-center">Get smarter about your travel?</h1>
+          <h1 class="h1 Caslon mt-3 t-center">Get smarter about your travel?</h1>
 
           <div class="flex-col a-c option-track mt-3">
-            <div class="flex-row mt-p5 s-w95 scroll-x" v-for="(option, index) in options" :key="index">
-                <div class="flex-row a-c each-option point border-box" v-for="(option, index) in option" :key="index" style="margin: 0 .2rem;" @click="navigate(option.link)">
+            <div class="flex-row mt-p5 s-w95 s-scroll-x" v-for="(option, index) in options" :key="index">
+                <div :class="{'flex-row a-c each-option point border-box': true, 'fade-5': option.available}" v-for="(option, index) in option" :key="index" style="margin: 0 .2rem;" @click="navigate(option.link)">
                   <div class="black-circle mr-1"></div>
                   <p class="poppins_light  t-center s-min-w-7">{{option.title}}</p>
                 </div>
@@ -27,7 +27,7 @@
             <p class="poppins fade-5 t-center">Community so helpful</p>
           </div>
 
-          <h2 class="h2 poppins_light mt-2 t-center s-mt-3 s-mb-1">All on <u class="point" @click="navigate('/about')">Travooler</u>.<br>All for you.</h2>
+          <h2 class="h2 caslon_light mt-2 t-center s-mt-3 s-mb-1">All on <u class="point" @click="navigate('/about')">Travooler</u>.<br>All for you.</h2>
         </div>
     </div>
 </template>
@@ -37,9 +37,9 @@ export default {
   data () {
     return {
       options: [
-        [{ title: 'Admissions', link: '/Chat' }, { title: 'Canada', link: '' }, { title: 'USA', link: '' }, { title: 'Express Entry', link: '' }, { title: 'Q & A', link: '' }, { title: 'Community', link: '' }],
-        [{ title: 'AgentsCanada', link: '' }, { title: 'AgentsUSA', link: '' }, { title: 'AgentsSchengen', link: '' }, { title: 'AgentsUK', link: '' }, { title: 'UK', link: '' }],
-        [{ title: 'Australia', link: '' }, { title: 'TrendingAnswers', link: '' }, { title: 'AgentsAustralia', link: '' }, { title: 'IELTSTutors', link: '' }, { title: 'TicketFinder', link: '' }]
+        [{ title: 'Admissions', link: '/Chat', available: false }, { title: 'Canada', link: '', available: true }, { title: 'USA', link: '', available: true }, { title: 'Express Entry', link: '', available: true }, { title: 'Q & A', link: '', available: true }, { title: 'Community', link: '', available: true }],
+        [{ title: 'AgentsCanada', link: '', available: true }, { title: 'AgentsUSA', link: '', available: true }, { title: 'AgentsSchengen', link: '', available: true }, { title: 'AgentsUK', link: '', available: true }, { title: 'UK', link: '', available: true }],
+        [{ title: 'Australia', link: '', available: true }, { title: 'TrendingAnswers', link: '', available: true }, { title: 'AgentsAustralia', link: '', available: true }, { title: 'IELTSTutors', link: '', available: true }, { title: 'TicketFinder', link: '', available: true }]
       ],
       warning: ''
     }
@@ -51,6 +51,13 @@ export default {
     navigate (route) {
       if (route == '') {
         this.warning = 'Coming soon!!!'
+        this.$store.dispatch('flashNotif', {
+          message: {
+            title: 'Coming soon!!!',
+            text: 'We are working hard to bring this feature to you soonest.'
+          },
+          type: 'neutral'
+        })
         setTimeout(() => {
           this.warning = ''
         }, 1500)

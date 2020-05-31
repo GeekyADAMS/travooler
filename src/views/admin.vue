@@ -55,7 +55,7 @@ export default {
         this.$store.dispatch('loginUser')
         this.user.warning = false
         this.userDetails.status = true
-        this.$router.push('post-schools')
+        this.$router.push({path: '/admin/dashboard'})
       } else {
         this.$store.dispatch('wrongUser')
         this.user.warning = true

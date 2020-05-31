@@ -1,0 +1,107 @@
+[
+    {
+        "label": "schoolName",
+        "labelText": "School Name",
+        "type": "school",
+        "placeholder": "Enter school name",
+        "warning": ""
+    },
+    {
+        "label": "city",
+        "labelText": "City",
+        "type": "school",
+        "placeholder": "Enter city location",
+        "warning": ""
+    },
+    {
+        "label": "admissionScore",
+        "labelText": "Admission Score",
+        "type": "school",
+        "placeholder": "Enter admission score",
+        "warning": "Only numbers or digits allowed."
+    },
+    {
+        "label": "status",
+        "labelText": "status",
+        "type": "school",
+        "placeholder": "Enter admissions status",
+        "warning": ""
+    },
+    {
+        "label": "degree",
+        "labelText": "Degree",
+        "type": "school",
+        "placeholder": "Enter degree offered",
+        "warning": ""
+    },
+    {
+        "label": "appFee",
+        "labelText": "Application Fee",
+        "type": "school",
+        "placeholder": "Enter application fee",
+        "warning": "Only numbers or digits allowed."
+    },
+    {
+        "label": "country",
+        "labelText": "Country",
+        "type": "school",
+        "placeholder": "Enter country location",
+        "warning": ""
+    },
+    {
+        "label": "course",
+        "labelText": "Course/Program",
+        "type": "school",
+        "placeholder": "Enter course offered",
+        "warning": ""
+    },
+    {
+        "label": "cost",
+        "labelText": "Cost Per Session",
+        "type": "school",
+        "placeholder": "Enter cost",
+        "warning": "Only numbers or digits allowed."
+    },
+    {
+        "label": "url",
+        "labelText": "School Website",
+        "type": "url",
+        "placeholder": "Enter school website url",
+        "warning": ""
+    },
+    {
+        "label": "prevlink",
+        "labelText": "Preview Link",
+        "type": "school",
+        "placeholder": "Enter school details link",
+        "warning": ""
+    },
+    {
+        "label": "sessMonth",
+        "labelText": "Session Month",
+        "type": "school",
+        "placeholder": "Enter admission month",
+        "warning": ""
+    },
+    {
+        "label": "sessYear",
+        "labelText": "Session Year",
+        "type": "school",
+        "placeholder": "Enter admission year",
+        "warning": "Only numbers or digits allowed."
+    },
+    {
+        "label": "schoolID",
+        "labelText": "schoolID",
+        "type": "school",
+        "placeholder": "Enter school id",
+        "warning": ""
+    },
+    {
+        "label": "invoiceFee",
+        "labelText": "Invoice Fee",
+        "type": "school",
+        "placeholder": "Enter invoice amount",
+        "warning": "Only numbers or digits allowed."
+    }
+]

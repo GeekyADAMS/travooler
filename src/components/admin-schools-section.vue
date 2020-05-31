@@ -12,10 +12,10 @@
             </portal>
 
             <div class="flex-row a-c">
-                <button class="tooltip poppins darkTxt addNew point text-5 border-box ml-1">+<span class="tooltiptext text-2">Add New</span></button>
+                <button class="tooltip poppins darkTxt addNew point text-5 border-box ml-1" @click="goToAddNew()">+<span class="tooltiptext text-2">Add New</span></button>
                 <button class="ml-1 round-edge-btn pub-btn fit-all point" @click="showPublished"><div class="poppins dakTxt text-1 scale-on-hover" disabled>Published schools</div></button>
                 <button class="draft-btn ml-1 round-edge-btn fit-all point scale-on-hover" @click="showDraft"><div class="poppins dakTxt text-1">Drafts</div></button>
-                <button class="draft-btn ml-1 round-edge-btn fit-all point scale-on-hover" @click="showDraft"><div class="poppins dakTxt text-1">Publish All</div></button>
+                <button class="draft-btn ml-1 round-edge-btn fit-all point scale-on-hover" @click="handleCheck"><div class="poppins dakTxt text-1">{{bulkCheck}}</div></button>
                 <button class="tooltip2 poppins darkTxt delete no-border point text-5 border-box ml-1" @click="deleteBatch"><img src="@/assets/img/icons/bin.png" alt="" width="37px" height="37px"><span class="tooltiptext2 text-2">Delete ({{selectedDrafts.length}})</span></button>
                 <button class="tooltip2 poppins darkTxt point delete text-5 border-box ml-1" @click="publishBatchSchools(selectedDrafts)"><img src="@/assets/img/icons/publish-icon.png" alt="" width="37px" height="37px"><span class="tooltiptext2 text-2">Publish ({{selectedDrafts.length}})</span></button>
             </div>
@@ -115,8 +115,8 @@
             <div :class="{'flex-col w100p-max a-c-n bg-white h100p hide-overflow-y round-edge-sm allSchools': true, 'w92p': !publishedClicked, 'w5p': !draftClicked}">
 
                 <div :class="{'table-head w100p h10p flex-row a-c-n poppins border-box': true, hide: publishedClicked}" style="box-shadow: 0 12px 24px rgba(0,0,0,.05);">
-                    <span class="w20p ml-p5" style="">{{postCount}}</span>
-                    <span class="w20p ml-2" style="">{{selectedDrafts}}</span>
+                    <span class="w20p ml-p5" style="">School ID</span>
+                    <span class="w20p ml-2" style="">Name</span>
                     <span class="w15p ml-p5" style="">Location</span>
                     <span class="w15p ml-p5" style="">Degree Offered</span>
                     <span class="w10p ml-1" style="">Cost</span>
@@ -201,7 +201,7 @@
                         <span :class="{'w5p ml-p5 light': true, hide: publishedClicked}"><img src="@/assets/img/icons/eye.png" alt="" width="20px" height="20px" class="point"  @click="setDraftIndex(school._id)"></span>
                         <span :class="{' ml-p5 light': true, hide: publishedClicked}">
                         <label class="checkbox path point">
-                            <input type="checkbox" class="point" :value="school" v-model="selectedDrafts" :name="school">
+                            <input type="checkbox" class="point" :value="school" v-model="selectedDrafts" :name="school" ref="marker">
                             <svg viewBox="0 0 21 21">
                                 <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                             </svg>
@@ -232,7 +232,8 @@ export default {
       popDraftModal: false,
       deleteStatus: 'Delete',
       selectedDrafts: [],
-      postCount: 0
+      postCount: 0,
+      bulkCheck: 'Mark All'
     }
   },
   computed: {
@@ -253,6 +254,33 @@ export default {
     }
   },
   methods: {
+    handleCheck () {
+      if (this.bulkCheck === 'Mark All') {
+        let boxes = this.$refs.marker
+        let len = this.schools.draftedSchools.length
+
+        for (let i = 0; i < len; i++){
+          this.selectedDrafts.push(this.schools.draftedSchools[i])
+        }
+        boxes.map(box => {
+          box.checked = true
+        })
+        console.log(this.selectedDrafts)
+        this.bulkCheck = 'Unmark All'
+      } else {
+        this.selectedDrafts.length = 0
+
+        let boxes = this.$refs.marker
+        boxes.map(box => {
+          box.checked = false
+        })
+        console.log(this.selectedDrafts)
+        this.bulkCheck = 'Mark All'
+      }
+    },
+    goToAddNew () {
+      this.$router.push({path: '/post-schools'})
+    },
     showDraft () {
       this.draftClicked = true
       this.publishedClicked = false
@@ -296,7 +324,7 @@ export default {
     async deletePublishedSchool () {
       if (this.clickedIndex !== null) {
         this.deleteStatus = 'Deleting'
-        let url = 'https://travooler.herokuapp.com/schools/published/' + this.clickedIndex
+        let url = 'https://travooler-api.herokuapp.com/schools/published/' + this.clickedIndex
         await axios.delete(url)
         console.log('deleted')
         this.fetchSchools()
@@ -304,7 +332,7 @@ export default {
       }
     },
     async deleteAllSchools () {
-      await axios.delete('https://travooler.herokuapp.com/schools/published/')
+      await axios.delete('https://travooler-api.herokuapp.com/schools/published/')
     },
     expandPublishedDetails () {
       this.popPublishedModal = true
@@ -318,7 +346,7 @@ export default {
       for (; i <= length; i++) {
         let selectedSchool = selectedDrafts[i]
 
-        await axios.post('https://travooler.herokuapp.com/schools/published', {
+        await axios.post('https://travooler-api.herokuapp.com/schools/published', {
           name: selectedSchool.name,
           state: selectedSchool.state,
           score: selectedSchool.admissionScore,
@@ -327,21 +355,26 @@ export default {
           appFee: selectedSchool.applicationFee,
           country: selectedSchool.country,
           course: selectedSchool.courseOffered,
-          cost: selectedSchool.schoolCost
+          cost: selectedSchool.schoolCost,
+          url: selectedSchool.schoolURL,
+          prevlink: selectedSchool.previewLink,
+          sessMonth: selectedSchool.admissionMonth,
+          sessYear: selectedSchool.admissionYear,
+          schoolID: selectedSchool.schoolID
         })
-        axios.delete('https://travooler.herokuapp.com/schools/drafts/' + selectedSchool._id)
+        await axios.delete('https://travooler-api.herokuapp.com/schools/drafts/' + selectedSchool.schoolID)
         let index = this.schools.draftedSchools.indexOf(selectedDrafts[i])
         if (index !== -1) this.schools.draftedSchools.splice(index, 1)
       }
     },
-    deleteBatch () {
+    async deleteBatch () {
       let i = 0
       let selectedDrafts = this.selectedDrafts
       let length = selectedDrafts.length
       for (; i <= length; i++) {
-        let selectedSchoolId = selectedDrafts[i]._id
+        let selectedSchoolId = selectedDrafts[i].schoolID
 
-        axios.delete('https://travooler.herokuapp.com/schools/drafts/' + selectedSchoolId)
+        await axios.delete('https://travooler-api.herokuapp.com/schools/drafts/' + selectedSchoolId)
 
         let index = this.schools.draftedSchools.indexOf(selectedDrafts[i])
         if (index !== -1) this.schools.draftedSchools.splice(index, 1)
