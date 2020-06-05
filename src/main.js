@@ -10,12 +10,14 @@ import prefooter from './components/prefooter'
 import ExtNav from './components/navbarExT'
 import TravNav from './components/navbar-travooler'
 import PortalVue from 'portal-vue'
+// import remixIcon from 'remixicon'
 
 // import chillax from './plugins/chillax'
 
 // Vue.use(chillax)
 
 Vue.use(PortalVue)
+// Vue.use(remixIcon)
 
 Vue.use(VueScrollReveal, {
   class: 'v-scroll-reveal',

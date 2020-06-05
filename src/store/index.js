@@ -4,6 +4,7 @@ import schools from './modules/schools'
 import admin from './modules/admin'
 import onboard from './modules/onboard'
 import notification from './modules/notification'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 

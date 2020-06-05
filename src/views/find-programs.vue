@@ -7,7 +7,7 @@
 
             <portal-target name="navbar-search" class="h60p w40p"  v-if="!mobile"></portal-target>
 
-            <div class="flex-row a-c point" ref="navChat" v-if="!mobile"><img src="@/assets/STASHIP-UNIVERS-IMG/chat.png" alt="" class="identicon" style="margin-right: .25rem;">
+            <div class="flex-row a-c point" ref="navChat" v-if="!mobile" @click="popChat"><img src="@/assets/STASHIP-UNIVERS-IMG/chat.png" alt="" class="identicon" style="margin-right: .25rem;">
             <span class="poppins darkTxt" style="font-size: .8rem;">Chat with an advisor</span></div>
 
             <div class="burger-menu point flex-col a-c-n"  @click="burgerClick = !burgerClick">
@@ -51,6 +51,10 @@ export default {
     }
   },
   methods: {
+    popChat () {
+      window.fcWidget.open()
+      window.fcWidget.show()
+    }
   }
 }
 </script>

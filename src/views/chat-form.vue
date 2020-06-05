@@ -66,10 +66,17 @@ export default {
       replies: {
         name: null,
         email: null,
-        country: null,
-        qualification: null,
-        program: null,
-        searchID: null
+        preference: {
+          country: null,
+          degree: null,
+          program: null
+        },
+        searchID: null,
+        searchedFrom: {
+          city: null,
+          country: null,
+          ipAddress: null
+        }
       },
       renderMetrics: [false, false, false, false, false, false, false, false, false],
       count: 0,
@@ -99,12 +106,14 @@ export default {
       }, 1000)
     },
     async validateAndRender () {
+      let chatData = this.replies
+
       if ((this.currentReply !== '') && this.questionCount == 0) {
         if (this.currentReply.match(/^[A-Za-z\s]+$/)) {
-          this.replies.name = this.currentReply
+          chatData.name = this.currentReply
           this.renderReply()
           setTimeout(() => {
-            this.renderQuestion('Nice to meet you '+ this.replies.name)
+            this.renderQuestion('Nice to meet you '+ chatData.name)
           }, 1000)
           setTimeout(() => {
             this.renderQuestion('What\'s your email address?')
@@ -120,12 +129,12 @@ export default {
       }
       if ((this.currentReply !== '') && this.questionCount == 1) {
         if (this.currentReply.match(/\S+@\S+\.\S+/)) {
-          this.replies.email = this.currentReply
+          chatData.email = this.currentReply
           this.renderReply()
           setTimeout(() => {
             this.renderQuestion('processing...')
           }, 1000)
-          await axios.post('https://travooler-api.herokuapp.com/mail/api/welcome?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, {name: this.replies.name, mail: this.replies.email}).then((response) => {
+          await axios.post('https://travooler-api.herokuapp.com/mail/api/welcome?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, {name: chatData.name, mail: chatData.email}).then((response) => {
               if ([200, 201].includes(response.status)) {
                 this.renderQuestion('In which country would you like to study?')
               }
@@ -146,7 +155,7 @@ export default {
         }
       }
       if ((this.currentReply !== '') && this.questionCount == 2) {
-        this.replies.country = this.currentReply
+        chatData.preference.country = this.currentReply
         this.renderReply()
         setTimeout(() => {
           this.renderQuestion('Great!')
@@ -159,7 +168,7 @@ export default {
         }, 2000)
       }
       if ((this.currentReply !== '') && this.questionCount == 3) {
-        this.replies.qualification = this.currentReply
+        chatData.preference.degree = this.currentReply
         this.renderReply()
         setTimeout(() => {
           this.renderQuestion('Now, please enter a program of interest to continue.')
@@ -169,12 +178,23 @@ export default {
         }, 1500)
       }
       if ((this.currentReply !== '') && this.questionCount == 4) {
-        this.replies.program = this.currentReply
-        this.replies.searchID = this.generateSearchID()
+        chatData.preference.program = this.currentReply
+        let searchID = this.generateSearchID()
+        chatData.searchID = searchID
         this.renderReply()
-        this.$store.dispatch('updateUserDetails', this.replies)
+
+        let userLocation = await axios.get('http://api.ipstack.com/check?access_key=c4be1dd155df8dc123b103f10e546f6f')
+        if ([200, 201].includes(userLocation.status)) {
+          let location =  userLocation.data
+          chatData.searchedFrom.city = location.region_name
+          chatData.searchedFrom.country = location.country_name
+          chatData.searchedFrom.ipAddress= location.ip
+        }
+
+        this.$store.dispatch('uploadUserDetails', chatData)
+
         setTimeout(() => {
-          this.$router.push({path: '/find-programs/schools'})
+          this.$router.push({path: '/find-programs/schools/'+searchID})
         }, 1000)
       }
     },

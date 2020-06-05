@@ -8,25 +8,25 @@
                 <div class="flex-col w100p mt-2">
                     <div class="flex-row space-btw">
                         <p class="text-p7 poppins fade-6">COUNTRY</p>
-                        <p class="poppins fade-9">{{userDetails.preference.country}}</p>
+                        <p class="poppins fade-9">{{userSearchDetails.preference.country}}</p>
                     </div>
-                    <p class="text-p7 fade-7 poppins mt-p5">{{userDetails.preference.country}} is popular for its top ranked schools, post-graduation and path to permanent reside... <u class="point">Read More</u></p>
+                    <p class="text-p7 fade-7 poppins mt-p5">{{userSearchDetails.preference.country}} is popular for its top ranked schools, post-graduation and path to permanent reside... <u class="point">Read More</u></p>
                 </div>
 
                 <div class="flex-col w100p mt-2">
                     <div class="flex-row space-btw">
                         <p class="text-p7 poppins fade-6">LEVEL</p>
-                        <p class="poppins fade-9">{{userDetails.preference.degree}}</p>
+                        <p class="poppins fade-9">{{userSearchDetails.preference.degree}}</p>
                     </div>
-                    <p class="text-p7 fade-7 poppins mt-p5">{{userDetails.preference.degree}} program requires a bachelors programme... <u class="point">Read More</u></p>
+                    <p class="text-p7 fade-7 poppins mt-p5">{{userSearchDetails.preference.degree}} program requires a bachelors programme... <u class="point">Read More</u></p>
                 </div>
 
                 <div class="flex-col w100p mt-2">
                     <div class="flex-row space-btw">
                         <p class="text-p7 poppins fade-6">PROGRAM</p>
-                        <p class="poppins fade-9">{{userDetails.preference.program}}</p>
+                        <p class="poppins fade-9">{{userSearchDetails.preference.program}}</p>
                     </div>
-                    <p class="text-p7 fade-7 poppins mt-p5">{{userDetails.preference.program}} graduates are highly sort after in Canada for the reasons that... <u class="point">Read More</u></p>
+                    <p class="text-p7 fade-7 poppins mt-p5">{{userSearchDetails.preference.program}} graduates are highly sort after in Canada for the reasons that... <u class="point">Read More</u></p>
                 </div>
 
                 <div class="flex-col">
@@ -62,7 +62,7 @@
 
             <div class="w85p s-w90 h100p flex-col tes-frame">
                 <div class="w100p flex-col">
-                    <h2 class="poppins mt-3 fade-8">Hey {{userDetails.name}}, Here's your top 3 programs!</h2>
+                    <h2 class="poppins mt-3 fade-8">Hey {{userSearchDetails.name}}, Here's your top<span v-if="!isSearchResultEmpty"> {{showing}}</span> programs!</h2>
                     <div class="flex-row flex-col-m a-c space-btw w100p mt-1">
                         <p class="poppins_light text-p8 w60p s-w90">
                             <b></b>Tip: Choose the school you like best. If you're not sure, the lowest tuition is a good place to start. All you need to do is send us your choice and we'll show you how to apply.
@@ -70,16 +70,21 @@
 
                         <div class="flex-col s-mt-2 s-mr-auto">
                             <p class="poppins">Not sure where to start?</p>
-                            <button class="outlined-black-btn mt-p5 poppins point" @click="hey()"> ASK A TRAVOOLER AGENT</button>
+                            <button class="outlined-black-btn mt-p5 poppins point" @click="popChat"> ASK A TRAVOOLER AGENT</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex-col w100p mt-3p5">
 
+                    <div class="flex-col a-c no-result w100p" v-if="isSearchResultEmpty">
+                        <img src="@/assets/img/illustrations/no_results.png" alt="" class="no-drag" draggable="false">
+                    </div>
+
+
                     <div class="w100p flex-col mb-p5 s-pad-4">
 
-                        <div class="w100p white_bg flex-row a-c wrap space-btw long-card border-box mb-1 mat-shadow-square" v-for="(program, index) in searchResults" :key="index">
+                        <div class="w100p white_bg flex-row a-c wrap space-btw long-card border-box mb-1 mat-shadow-square" v-for="(program, index) in searchResults.slice(0, showing)" :key="index">
                             <label class="checkbox path point">
                                 <input type="checkbox" class="point" :value="index" v-model="userChoice" :name="program">
                                 <svg viewBox="0 0 21 21">
@@ -111,11 +116,12 @@
 
                         </div>
                     </div>
-                    
+
                     <div class="flex-row w100p a-c s-fixed-b s-white-bg s-w100">
-                        <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" @click="showMore">See more</p>
-                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length == 1">Send</button>
-                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length > 1">Send All - {{userChoice.length}}</button>
+                        <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" @click="showMore" v-if="!isSearchResultEmpty">See more</p>
+                        <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" v-if="isSearchResultEmpty">Edit preference</p>
+                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length == 1" @click="sendInvoice()">Send</button>
+                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length > 1" @click="sendInvoice()">Send All - {{userChoice.length}}</button>
                     </div>
                 </div>
             </div>
@@ -132,14 +138,15 @@ export default {
   props: ['burgerClick'],
   data () {
     return {
-      programs: ['hey', 'hi', 'yo'],
+      userSearchDetails: null,
       userChoice: [],
       modal: {
           state: false,
           link: ''
       },
       previewLink: '',
-      modalFocus: null
+      modalFocus: null,
+      showing: 3
     }
   },
   computed: {
@@ -147,25 +154,39 @@ export default {
     mobile () {
       return this.$store.state.mobile
     },
-    userDetails () {
-      return this.$store.getters.userDetail
-    },
     searchResults () {
       let results = []
+      let details = this.userSearchDetails
 
       results = this.allSchools.filter(obj => {
-          return obj.country.toLowerCase() === this.userDetails.preference.country.toLowerCase() || obj.courseOffered.toLowerCase() === this.userDetails.preference.program.toLowerCase() || obj.degreeOffered.toLowerCase() === this.userDetails.preference.degree.toLowerCase()
+          return obj.country.toLowerCase() === details.preference.country.toLowerCase() || obj.courseOffered.toLowerCase() === details.preference.program.toLowerCase() || obj.degreeOffered.toLowerCase() === details.preference.degree.toLowerCase()
         })
       
       return results
+    },
+    isSearchResultEmpty () {
+        if (this.searchResults.length > 0) {
+          return false
+        } else {
+          return true
+        }
+    },
+    showCount () {
+        if (this.searchResults.length >= 3) {
+            this.showing = 3
+        } else {
+            this.showing = this.searchResults.length
+        }
     }
   },
   methods: {
-    hey () {
-      console.log(this.searchResults)
+    popChat () {
+      window.fcWidget.open()
+      window.fcWidget.show()
     },
     showMore () {
-      this.$router.push({path: '/find-programs/more'})
+      if (this.showing < this.searchResults.length - 1) this.showing += 2
+      if (this.showing === this.searchResults.length - 1) this.showing += 1
     },
     popModal (link) {
       this.modal.link = 'https://'+link
@@ -178,7 +199,7 @@ export default {
     },
     async sendSchoolSuggestions () {
 
-        await axios.post('https://travooler-api.herokuapp.com/mail/api/suggest-schools?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userDetails.name, mail: this.userDetails.mail, filteredResult: this.searchResults.slice(0, 3), generatedURL: this.userDetails.searchID }).then(response => {
+        await axios.post('https://travooler-api.herokuapp.com/mail/api/suggest-schools?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userSearchDetails.name, mail: this.userSearchDetails.mail, filteredResult: this.searchResults.slice(0, this.showing), generatedURL: this.$route.params.searchID }).then(response => {
             if ([200, 201].includes(response.status)) {
               this.$store.dispatch('flashNotif', {
                 message: {
@@ -187,6 +208,7 @@ export default {
                 },
                 type: 'neutral'
               })
+              window.navigator.vibrate(1000)
             }
             if ([500].includes(response.status)) {
               console.log(response.status)
@@ -195,19 +217,67 @@ export default {
             console.log(error)
         })
     },
+   sendInvoice () {
+       for (let i = 0; i < this.userChoice.length; i++) {
+           axios.post('https://travooler-api.herokuapp.com/mail/api/invoice?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userDetails.name, mail: this.userDetails.mail, schoolDetails: this.searchResults[i], generatedURL: this.userDetails.searchID }).then(response => {
+                if ([200, 201].includes(response.status)) {
+                this.$store.dispatch('flashNotif', {
+                    message: {
+                    title: 'Application Successful!',
+                    text: 'Your application details has been sent to your mail. You can proceed from there.'
+                    },
+                    type: 'success'
+                })
+                window.navigator.vibrate(500)
+                }
+                if ([500].includes(response.status)) {
+                console.log(response.status)
+                }
+            }, (error) => {
+                console.log(error)
+            })
+       }
+    },
+    async fetchSearchDetails () {
+        let searchKey = this.$route.params.searchID
+
+        if (searchKey) {
+            let searchID = searchKey
+            let url = 'https://travooler-api.herokuapp.com/api/users/school-search/'+searchID+'/?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY
+            let response = await axios.get(url)
+            console.log(response.data.data)
+            this.userSearchDetails = response.data.data[0]
+        }
+
+    },
+    checkRouteParam () {
+        let searchID = this.$route.params.searchID
+
+        if (searchID) {
+            this.fetchSearchDetails()
+        }
+    },
     ...mapActions(['fetchSchools'])
+  },
+  created () {
+    this.checkRouteParam()
   },
   beforeMount() {
     this.fetchSchools()
   },
   mounted () {
-    console.log(this.allSchools)
-    this.sendSchoolSuggestions()
+    setTimeout(() => {
+        this.sendSchoolSuggestions()
+    }, 5000)
   }
 }
 </script>
 
 <style scoped>
+.no-result>img{
+    width: 23rem;
+    height: 17rem;
+}
 .send-btn{
     background: #141414;;
     padding: .6rem 1rem;

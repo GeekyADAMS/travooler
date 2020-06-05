@@ -97,9 +97,7 @@ const routes = [
     children: [
       { path: '/find-programs/more', name: 'more-schools', component: findMorePrograms },
       { path: '/find-programs/travels', name: 'findtravels', component: findTravelProgram },
-      { path: '/find-programs/schools', name: 'findschools', component: findSchoolsProgram },
-      { path: '/find-programs/schools/:searchKey', name: 'searchSchools', component: findSchoolsProgram }
-      
+      { path: '/find-programs/schools/:searchID', name: 'findschools', component: findSchoolsProgram }
     ]
   },
   {
