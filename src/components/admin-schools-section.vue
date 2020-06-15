@@ -348,7 +348,7 @@ export default {
 
         await axios.post('https://travooler-api.herokuapp.com/schools/published', {
           name: selectedSchool.name,
-          state: selectedSchool.state,
+          city: selectedSchool.state,
           score: selectedSchool.admissionScore,
           status: selectedSchool.status,
           degree: selectedSchool.degreeOffered,

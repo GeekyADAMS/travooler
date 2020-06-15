@@ -1,7 +1,7 @@
 <template>
     <div class="w100 h90 off-white-2 flex-row a-c hide-overflow">
 
-        <section :class="{'w20 h100p white_bg flex-col a-c hide-overflow-x scroll-y s-fixed-l top-50 s-w70 animated': true, slideInLeft: !burgerClick,  slideOutLeft: burgerClick}">
+        <section :class="{'w20 h100p white_bg flex-col a-c hide-overflow-x scroll-y s-fixed-l top-50 s-w70 animated': true, slideInLeft: !burgerClick,  slideOutLeft: burgerClick, blur: applicationState||editPrefModal}">
             <div class="w80p h100p flex-col">
                 <p class="poppins text-2 mt-3 w100p mb-1 s-mt-5">Adjust your preference</p>
 
@@ -30,20 +30,29 @@
                 </div>
 
                 <div class="flex-col">
-                    <p class="text-p7 poppins fade-7 mt-3">SHOW ME SIMILAR COURSES</p>
+                    <p class="text-p7 poppins fade-7 mt-3">SHOW ME ALL PROGRAMS</p>
 
                     <div class="flex-row space-btw mt-1">
                         <span class="point">
-                            <input type="radio" name="sub" id="">
-                            <label for="yes" class="poppins">Yes</label>
+                            <input type="radio" name="sub" id="no" value="no" v-model="showAll"
+                            class="point hide">
+                            <label for="#no" class="poppins point">No</label>
                         </span>
+
+                        <div class="mr-2"><label class="pure-material-switch">
+                            <input type="checkbox" id="yes" @change="$router.push('/find-programs/more')">
+                            <span></span>
+                        </label></div>
+
                         <span class="point">
-                            <input type="radio" name="sub" id="" style="color: blue; background: blue">
-                            <label for="yes" class="poppins">No</label>
+                            <input type="radio" name="sub" id="" style="color: blue; background: blue" value="yes" v-model="showAll"
+                            @change="$router.push('/find-programs/more')"
+                            class="point hide">
+                            <label for="yes" class="poppins point">Yes</label>
                         </span>
                     </div>
 
-                    <button class="outlined-black-btn mt-2 poppins point fade-8 hover-fade-5"> Edit your preference</button>
+                    <button class="outlined-black-btn mt-2 poppins point fade-8 hover-fade-5" @click="switchEditPrefModal()"> Edit your preference</button>
                 </div>
             </div>
         </section>
@@ -51,14 +60,22 @@
         <!-- MOdal starts here -->
         <transition name="fade">
             <div class="flex-col a-c w100p h100p modal-bg  fixed top-100" style="top: 0;" v-if="modal.state">
-                <div class="flex-col a-c round-edge-md w70 h80 s-h85 s-w90 top-100 point white_bg mt-5 border-box modal-inner" ref="modal" @focus="popModal()" @focusout="closeModal()" @mouseenter="modalFocus = true" @mouseleave="closeModal()" tabindex="-1">
+                <div class="flex-col a-c round-edge-md w70 h80 s-h85 s-w90 top-100 point white_bg mt-5 border-box modal-inner holds-the-iframe" ref="modal" @focus="popModal()" @focusout="closeModal()" @mouseenter="modalFocus = true" @mouseleave="closeModal()" tabindex="-1">
                     <iframe :src="modal.link" frameborder="1" name="school-details" scrolling="auto" class="w100p h100p round-edge-sm no-outline"></iframe>
                 </div>
             </div>
         </transition>
         <!-- MOdal ends here -->
 
-        <section class="w80 s-w100 scroll-y h100p flex-col a-c">
+        <!-- Application Success modal starts here -->
+        <ApplicationSuccesssModal />
+        <!-- MOdal ends here -->
+
+        <!-- Edit Preference modal starts here -->
+        <EditPreference />
+        <!-- MOdal ends here -->
+
+        <section :class="{'w80 s-w100 scroll-y h100p flex-col a-c': true, blur: applicationState||editPrefModal}">
 
             <div class="w85p s-w90 h100p flex-col tes-frame">
                 <div class="w100p flex-col">
@@ -85,43 +102,43 @@
                     <div class="w100p flex-col mb-p5 s-pad-4">
 
                         <div class="w100p white_bg flex-row a-c wrap space-btw long-card border-box mb-1 mat-shadow-square" v-for="(program, index) in searchResults.slice(0, showing)" :key="index">
-                            <label class="checkbox path point">
+                            <label class="checkbox path point s-mb-1 mr-1">
                                 <input type="checkbox" class="point" :value="index" v-model="userChoice" :name="program">
                                 <svg viewBox="0 0 21 21">
                                     <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                                 </svg>
                             </label>
 
-                            <div class="flex-col">
-                                <p class="text-2p5 Poppins fade-9">BSc {{program.courseOffered}}</p>
+                            <div class="flex-col w30p s-w-auto">
+                                <p class="text-2p5 Poppins fade-9">{{program.degreeOffered}} {{program.courseOffered}}</p>
                                 <p class="text-p7 poppins fade-7">{{program.name}}, {{program.city}}, {{program.country}}</p>
                             </div>
 
-                            <div class="y-seperator fade-2"></div>
+                            <div class="y-seperator fade-2 ml-p2 mr-p2"></div>
 
-                            <div class="flex-col a-c">
+                            <div class="flex-col a-c w20p s-w-auto">
                                 <p class="text-2p5 Poppins fade-9">{{program.admissionMonth}} {{program.admissionYear}}</p>
                                 <p class="text-p7 poppins fade-7">Next start date</p>
                             </div>
 
-                            <div class="y-seperator h100p fade-2"></div>
+                            <div class="y-seperator h100p fade-2 ml-p2 mr-p2"></div>
 
-                            <div class="flex-row a-c s-mt-1">
-                                    <p><span class="text-25 Poppins fade-9">${{program.schoolCost.toString().slice(0, 2)}}</span><span class="text-5 Poppins fade-9">k </span><span class="text-p7 poppins fade-8"> / SESSION</span></p>
+                            <div class="flex-row a-c s-mt-1 w20p s-w-auto">
+                                    <p class=""><span class="text-25 Poppins fade-9">${{program.schoolCost.toString().slice(0, 2)}}</span><span class="text-5 Poppins fade-9">k </span><span class="text-p7 poppins fade-8"> / SESSION</span></p>
                             </div>
 
-                            <div class="y-seperator h100p fade-2 s-mt-1"></div>
+                            <div class="y-seperator h100p fade-2 s-mt-1 ml-p2 mr-p2"></div>
 
-                            <button class="no-border white text-p7 point red_bg pad-stretch hover-fade Poppins s-mt-1" @click="popModal(program.previewLink)" >SEE PROGRAM DETAILS</button>
+                            <button class="no-border white text-p7 point red_bg pad-stretch hover-fade Poppins s-mt-1 ml-auto" @click="popModal(program.previewLink)" >SEE PROGRAM DETAILS</button>
 
                         </div>
                     </div>
 
-                    <div class="flex-row w100p a-c s-fixed-b s-white-bg s-w100">
+                    <div :class="{'flex-row w100p a-c s-fixed-b s-white-bg s-w100': true, 'white_bg fixed-bottom': userChoice.length > 0}">
                         <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" @click="showMore" v-if="!isSearchResultEmpty">See more</p>
-                        <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" v-if="isSearchResultEmpty">Edit preference</p>
-                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length == 1" @click="sendInvoice()">Send</button>
-                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn" v-if="userChoice.length > 1" @click="sendInvoice()">Send All - {{userChoice.length}}</button>
+                        <p class="poppins text-2 blueTxt black mr-1 t-center point mt-1 mb-1" v-if="isSearchResultEmpty" @click="switchEditPrefModal">Edit preference</p>
+                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn no-outline hide-overflow" v-if="userChoice.length == 1" @click="sendInvoice()"><div class="lds-ripple" v-show="sending"><div></div><div></div></div>{{sendBtnText}}<span style="margin-left: 0" v-if="!sending">Send</span></button>
+                        <button class="round-edge-btn white no-border poppins mr-1 point send-btn no-outline hide-overflow" v-if="userChoice.length > 1" @click="sendInvoice()"><div class="lds-ripple" v-show="sending"><div></div><div></div></div>{{sendBtnText}}<span v-if="!sending">Send All - {{userChoice.length}}</span></button>
                     </div>
                 </div>
             </div>
@@ -133,9 +150,15 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
+import EditPreference from '@/components/edit-preference-modal'
+import ApplicationSuccesssModal from '@/components/applySuccessModal'
 
 export default {
   props: ['burgerClick'],
+  components: {
+    EditPreference,
+    ApplicationSuccesssModal
+  },
   data () {
     return {
       userSearchDetails: null,
@@ -146,13 +169,19 @@ export default {
       },
       previewLink: '',
       modalFocus: null,
-      showing: 3
+      showing: 3,
+      sending: false,
+      sendBtnText: null,
+      showAll: ''
     }
   },
   computed: {
-    ...mapGetters(['allSchools']),
+    ...mapGetters(['allSchools', 'editPrefModal']),
     mobile () {
       return this.$store.state.mobile
+    },
+    applicationState () {
+        return this.$store.getters.successModal
     },
     searchResults () {
       let results = []
@@ -184,6 +213,15 @@ export default {
       window.fcWidget.open()
       window.fcWidget.show()
     },
+    sendingApplication () {
+        this.sending = true
+        this.sendBtnText = 'Sending...'
+    },
+    done () {
+        this.sending = false
+        this.sendBtnText = ''
+        this.userChoice.length = 0
+    },
     showMore () {
       if (this.showing < this.searchResults.length - 1) this.showing += 2
       if (this.showing === this.searchResults.length - 1) this.showing += 1
@@ -196,6 +234,10 @@ export default {
       if (this.modalFocus = true){
           this.modal.state = false
       }
+    },
+    popEditPrefModal () {
+    },
+    closeEditPrefModal () {
     },
     async sendSchoolSuggestions () {
 
@@ -217,18 +259,19 @@ export default {
             console.log(error)
         })
     },
-   sendInvoice () {
-       for (let i = 0; i < this.userChoice.length; i++) {
-           axios.post('https://travooler-api.herokuapp.com/mail/api/invoice?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userDetails.name, mail: this.userDetails.mail, schoolDetails: this.searchResults[i], generatedURL: this.userDetails.searchID }).then(response => {
+    async sendInvoice () {
+        this.sendingApplication()
+
+        for (let i = 0; i < this.userChoice.length; i++) {
+           await axios.post('https://travooler-api.herokuapp.com/mail/api/invoice?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY, { name: this.userSearchDetails.name, mail: this.userSearchDetails.mail, schoolDetails: this.searchResults[i], generatedURL: this.userSearchDetails.searchID }).then(response => {
                 if ([200, 201].includes(response.status)) {
-                this.$store.dispatch('flashNotif', {
-                    message: {
-                    title: 'Application Successful!',
-                    text: 'Your application details has been sent to your mail. You can proceed from there.'
-                    },
-                    type: 'success'
-                })
-                window.navigator.vibrate(500)
+                    this.$store.dispatch('flashNotif', {
+                        message: {
+                        title: 'Application Successful!',
+                        text: 'Your application details has been sent to your mail. You can proceed from there.'
+                        },
+                        type: 'success'
+                    })
                 }
                 if ([500].includes(response.status)) {
                 console.log(response.status)
@@ -237,6 +280,10 @@ export default {
                 console.log(error)
             })
        }
+
+       window.navigator.vibrate(500)
+       this.done()
+       this.switchSuccessModal()
     },
     async fetchSearchDetails () {
         let searchKey = this.$route.params.searchID
@@ -244,10 +291,19 @@ export default {
         if (searchKey) {
             let searchID = searchKey
             let url = 'https://travooler-api.herokuapp.com/api/users/school-search/'+searchID+'/?key='+process.env.VUE_APP_TRAVOOLER_MAIL_API_KEY
-            let response = await axios.get(url)
-            console.log(response.data.data)
-            this.userSearchDetails = response.data.data[0]
+
+            await axios.get(url).
+                    then( response => {
+                        console.log(response.data.data)
+                        this.userSearchDetails = response.data.data[0]
+                    }).catch( err => {
+                        localStorage.setItem('errRoute', this.$router.currentRoute.path )
+                        this.$router.push('/error')
+                    })
         }
+
+        this.$store.dispatch('setUserDetails', this.userSearchDetails)
+        localStorage.setItem('travoolerID', this.userSearchDetails.mail)
 
     },
     checkRouteParam () {
@@ -257,13 +313,13 @@ export default {
             this.fetchSearchDetails()
         }
     },
-    ...mapActions(['fetchSchools'])
+    ...mapActions(['fetchSchools', 'switchEditPrefModal', 'switchSuccessModal'])
   },
   created () {
     this.checkRouteParam()
+    this.fetchSchools()
   },
   beforeMount() {
-    this.fetchSchools()
   },
   mounted () {
     setTimeout(() => {
@@ -274,16 +330,14 @@ export default {
 </script>
 
 <style scoped>
-.no-result>img{
-    width: 23rem;
-    height: 17rem;
-}
-.send-btn{
-    background: #141414;;
-    padding: .6rem 1rem;
-}
-.send-btn:hover{
-    opacity: .8;
+
+
+@import url('~@/assets/styles/global-styles.css');
+
+.fixed-bottom{
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 .y-seperator{
     height: 3.5rem;

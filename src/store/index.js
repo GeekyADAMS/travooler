@@ -4,6 +4,7 @@ import schools from './modules/schools'
 import admin from './modules/admin'
 import onboard from './modules/onboard'
 import notification from './modules/notification'
+import modals from './modules/modals'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     schools,
     admin,
     onboard,
-    notification
+    notification,
+    modals
   },
   state: {
     mobile: false,
@@ -32,7 +34,7 @@ export default new Vuex.Store({
       return state.user
     }
   },
-  plugins: [],
+  plugins: [createPersistedState()],
   mutations: {
     checkMobileState: state => {
       if (window.innerWidth < 480) {

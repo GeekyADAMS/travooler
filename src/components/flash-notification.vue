@@ -1,21 +1,33 @@
 <template>
     <div :class="{warnTheme: notifTypes[0].active, neutralTheme: notifTypes[1].active, successTheme: notifTypes[2].active, errTheme: notifTypes[3].active, 'animated slideInRight pop-up fixed': true, 'slideOutRight': !notifStatus}">
-        <h3 class="poppins">{{notifMessage.title}}</h3>
-        <p class="poppins_light pad-top-p5 text-p8" >{{notifMessage.text}}</p>
+        <div class="flex-row w100p space-btw">
+            <div class="flex-col">
+                <h4 class="poppins">{{notifMessage.title}}</h4>
+                <p class="poppins_light pad-top-p5 text-p8" >{{notifMessage.text}}</p>
+            </div>
+            <img src="@/assets/img/icons/cancel-white.png" class="cancel-icon ml-1 point" alt="" @click="closeNotif">
+        </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
     ...mapGetters(['notifMessage', 'notifTypes', 'notifStatus'])
+  },
+  methods: {
+    ...mapActions(['closeNotif'])
   }
 }
 </script>
 
 <style scoped>
+    .cancel-icon{
+        width: 1.2rem;
+        height: 1.2rem;
+    }
     .pop-up{
         padding: 1.5rem;
         top: 15vh;

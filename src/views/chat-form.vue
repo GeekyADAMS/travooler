@@ -57,6 +57,7 @@ import Vue from 'vue'
 import response from '@/components/user-reply'
 import question from '@/components/question'
 import axios from 'axios'
+import generateID from '@/modules/generateSearchID'
 
 export default {
   data () {
@@ -224,10 +225,7 @@ export default {
       this.scrollTop()
     },
     generateSearchID () {
-      let k4 = () => {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-      }
-      return k4()+k4()+k4()+k4()
+      return generateID()
     },
     scrollTop () {
       this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight

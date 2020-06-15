@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-const fields = require('../../public/schoolInputfields.json')
+const fields = require('../../public/jsonData/schoolInputfields.json')
 
 export default {
   data () {
@@ -70,7 +70,6 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('disableNavbarState')
     if (this.userDetails.status === false) {
       this.$router.push('admin')
     }

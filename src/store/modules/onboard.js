@@ -18,14 +18,18 @@ const state = {
         ipAddress: ''
       }
     }
-  }
+  },
+  uploadSuccessStatus: false
 }
 
 const plugins = [createPersistedState()]
   
 const getters = {
     userDetail: (state) => {
-        return state.userDetails
+      return state.userDetails
+    },
+    uploadSuccessStatus: state => {
+      return state.uploadSuccessStatus
     }
 }
   
@@ -33,7 +37,16 @@ const mutations = {
   uploadUserDetails: (state, userSearchData) => {
 
     state.userDetails = userSearchData
+    state.uploadSuccessStatus = true
 
+  },
+  setUserDetails: (state, userSearchData) => {
+
+    state.userDetails = userSearchData
+    state.userDetails.searchLocation = {
+      searchedFrom: userSearchData.searchLocation
+    }
+    console.log(userSearchData)
   }
 }
   
@@ -61,7 +74,19 @@ const actions = {
       })
 
     context.commit('uploadUserDetails', searchData)
+  },
+  setUserDetails: (context, fetchedUserData) => {
+    let searchData = {
+      name: fetchedUserData.name,
+      mail: fetchedUserData.mail,
+      searchID: fetchedUserData.searchID,
+      preference: fetchedUserData.preference,
+      searchLocation: fetchedUserData.searchLocation
+    }
+
+    context.commit('setUserDetails', searchData)
   }
+
 }
 
 export default {

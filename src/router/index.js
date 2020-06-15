@@ -19,6 +19,8 @@ import findTravelProgram from '@/components/find-travels'
 import chatOnboarding from '@/views/chat-form'
 import schoolHome from '@/views/new-school-home'
 import findSchoolsProgram from '@/components/find-schools'
+import errPage from '@/components/error-pages/err404'
+import networkErr from '@/components/error-pages/err599'
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,16 @@ const routes = [
     path: '/about',
     name: 'homepage',
     component: homepage
+  },
+  {
+    path: '*',
+    name: 'errPage',
+    component: errPage
+  },
+  {
+    path: '/error',
+    name: 'networkErr',
+    component: networkErr
   },
   {
     path: '/explore',

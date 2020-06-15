@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-col w100 h100">
+    <div class="flex-col w100 h100 white_bg top-50">
         <section class="top_nav w100 h10 sticky flex-row a-c space-btw border-box">
             <div class="flex-row a-c ml-7 s-ml-0">
                 <img src="@/assets/logo-black.jpg" class="logo" alt="">
@@ -8,7 +8,18 @@
         </section>
 
         <div class="flex-col w100 h90 a-c-n  pad-lr border-box s-h-fit scroll-y">
-          <h1 class="h1 Caslon mt-3 t-center">Get smarter about your travel?</h1>
+          <h1 class="h1 Caslon mt-3 t-center">
+          <vue-typer :text='["Apply to amazing schools abroad", "Get smarter about your travel?", "Find the best travel deals?", "Want to travel with zero stress?", "Seeking for jobs and programs abroad?", "Admissions to top schools are available"]'
+          :repeat='Infinity'
+          :shuffle='true'
+          initial-action='typing'
+          :pre-type-delay='70'
+          :type-delay='100'
+          :pre-erase-delay='5000'
+          :erase-delay='100'
+          erase-style='backspace'
+          :erase-on-complete='false'
+          caret-animation='expand' class="h1"></vue-typer></h1>
 
           <div class="flex-col a-c option-track mt-3">
             <div class="flex-row mt-p5 s-w95 s-scroll-x" v-for="(option, index) in options" :key="index">
@@ -19,7 +30,7 @@
             </div>
           </div>
 
-          <button class="blac-btn t-center poppins white text-p8 mt-3 point hover-fade">Submit your questions...</button>
+          <a href="mailto: travooler@olste.com"><button class="mt-3 mb-2 pad-stretch no-border no-outline poppins edge-curve white matte_bg point">Submit your questions...</button></a>
 
           <div class="flex-row a-c space-btw mt-3">
             <p class="poppins fade-5 t-center">Undiscovered answers</p> <div class="dot"></div>
@@ -79,6 +90,8 @@ export default {
 }
 .h1{
   font-size: 2.5rem;
+  word-break: keep-all;
+  text-align: center;
 }
 .h2{
   font-size: 1.5rem;

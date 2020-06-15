@@ -35,13 +35,21 @@ const mutations = {
     state.notifStatus = true
     setTimeout(() => {
       state.notifStatus = false
-    }, 3000)
+    }, 7000)
+  },
+  closeNotif: state => {
+    setTimeout(() => {
+      state.notifStatus = false
+    }, 200)
   }
 }
 
 const actions = {
   flashNotif: (context, arg) => {
     context.commit('flashNotif', arg)
+  },
+  closeNotif: context => {
+    context.commit('closeNotif')
   }
 }
 
