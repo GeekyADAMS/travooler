@@ -184,7 +184,7 @@ export default {
         chatData.searchID = searchID
         this.renderReply()
 
-        let userLocation = await axios.get('http://api.ipstack.com/check?access_key=c4be1dd155df8dc123b103f10e546f6f')
+        let userLocation = await axios.get('https://api.ipstack.com/check?access_key=c4be1dd155df8dc123b103f10e546f6f')
         if ([200, 201].includes(userLocation.status)) {
           let location =  userLocation.data
           chatData.searchedFrom.city = location.region_name
